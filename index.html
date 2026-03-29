@@ -96,18 +96,81 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
     <script>
-        const posts = [
-            {
-                date: "2026-03-27",
-                title: "Kinema4D / DualCoT-VLA / TIPS / DynVLA / VideoITG / Real-3DQA",
-                papers: 6,
-                tags: ["paper-summary", "literature-review"],
-                file: "posts/2026-03-27.md"
-            }
-        ];
+        let posts = [];
+
+        // Auto-discover posts from posts/index.json (generated at build time)
+        // Falls back to GitHub API if index.json is unavailable
+        async function loadPosts() {
+            try {
+                // Try index.json first (works locally and on GitHub Pages)
+                const resp = await fetch('posts/index.json');
+                if (resp.ok) {
+                    posts = await resp.json();
+                    renderList();
+                    return;
+                }
+            } catch (e) {}
+
+            // Fallback: try GitHub API
+            try {
+                const resp = await fetch('https://api.github.com/repos/Carolzhangzz/paper-notes/contents/posts');
+                if (resp.ok) {
+                    const files = await resp.json();
+                    const mdFiles = files
+                        .filter(f => f.name.endsWith('.md'))
+                        .map(f => f.name)
+                        .sort()
+                        .reverse();
+
+                    posts = [];
+                    for (const name of mdFiles) {
+                        const date = name.replace('.md', '');
+                        const mdResp = await fetch(`posts/${name}`);
+                        if (!mdResp.ok) continue;
+                        const md = await mdResp.text();
+                        const meta = parseFrontmatter(md);
+                        const firstH2 = md.match(/^## (.+)$/m);
+                        posts.push({
+                            date: date,
+                            title: firstH2 ? firstH2[1] : date,
+                            papers: meta.papers || '?',
+                            tags: meta.tags || ['paper-summary'],
+                            file: `posts/${name}`
+                        });
+                    }
+                    renderList();
+                    return;
+                }
+            } catch (e) {}
+
+            document.getElementById('postList').innerHTML =
+                '<li style="text-align:center;padding:2rem;color:#656d76;">No posts found. Push some markdown files to posts/</li>';
+        }
+
+        function parseFrontmatter(md) {
+            const match = md.match(/^---\s*\n([\s\S]*?)\n---/);
+            if (!match) return {};
+            const meta = {};
+            match[1].split('\n').forEach(line => {
+                const m = line.match(/^(\w+):\s*(.+)/);
+                if (!m) return;
+                let val = m[2].trim();
+                if (val.startsWith('[')) {
+                    try { val = JSON.parse(val.replace(/'/g, '"')); } catch(e) {}
+                } else if (!isNaN(val)) {
+                    val = Number(val);
+                }
+                meta[m[1]] = val;
+            });
+            return meta;
+        }
 
         function renderList() {
             const list = document.getElementById('postList');
+            if (posts.length === 0) {
+                list.innerHTML = '<li style="text-align:center;padding:2rem;color:#656d76;">No posts yet.</li>';
+                return;
+            }
             list.innerHTML = posts.map((p, i) => `
                 <li class="post-item">
                     <a href="#" onclick="showPost(${i}); return false;">
@@ -115,7 +178,7 @@
                         <div class="post-title">${p.title}</div>
                         <div class="post-meta">
                             ${p.papers} papers &nbsp;
-                            ${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                            ${(p.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
                         </div>
                     </a>
                 </li>
@@ -139,7 +202,17 @@
             document.getElementById('postView').classList.remove('active');
         }
 
-        renderList();
+        // Check URL hash for direct post link
+        function checkHash() {
+            const hash = window.location.hash.slice(1);
+            if (hash) {
+                const idx = posts.findIndex(p => p.date === hash);
+                if (idx >= 0) showPost(idx);
+            }
+        }
+
+        loadPosts().then(() => checkHash());
+        window.addEventListener('hashchange', checkHash);
     </script>
 </body>
 </html>

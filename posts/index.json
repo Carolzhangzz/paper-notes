@@ -1,0 +1,22 @@
+[
+  {
+    "date": "2026-03-29",
+    "title": "Interdisciplinary Research in Artificial Intelligence: Challenges and Opportunities",
+    "papers": 1,
+    "tags": [
+      "paper-summary",
+      "literature-review"
+    ],
+    "file": "posts/2026-03-29.md"
+  },
+  {
+    "date": "2026-03-27",
+    "title": "Kinema4D: Kinematic 4D World Modeling for Spatiotemporal Embodied Simulation",
+    "papers": 6,
+    "tags": [
+      "paper-summary",
+      "literature-review"
+    ],
+    "file": "posts/2026-03-27.md"
+  }
+]
