@@ -2,41 +2,78 @@
   {
     "date": "2026-03-31",
     "title": "Human-AI Interaction for Steering and Alignment — 9-Paper Reading List",
-    "papers": 3,
-    "tags": [
-      "paper-summary",
-      "literature-review"
-    ],
-    "file": "posts/2026-03-31.md"
+    "category": "HCI/Creativity",
+    "file": "posts/2026-03-31.md",
+    "anchor": "1-human-ai-interaction-for-steering-and-alignment-9-paper-reading-list"
+  },
+  {
+    "date": "2026-03-31",
+    "title": "Evolving AI Collectives to Enhance Human Diversity and Enable Self-Regulation",
+    "category": "AI Safety",
+    "file": "posts/2026-03-31.md",
+    "anchor": "2-evolving-ai-collectives-to-enhance-human-diversity-and-enable-self-regulation"
+  },
+  {
+    "date": "2026-03-31",
+    "title": "Sycophantic AI Decreases Prosocial Intentions and Promotes Dependence",
+    "category": "AI Safety",
+    "file": "posts/2026-03-31.md",
+    "anchor": "3-sycophantic-ai-decreases-prosocial-intentions-and-promotes-dependence"
   },
   {
     "date": "2026-03-30",
     "title": "Dream to Chat: Model-based Reinforcement Learning on Dialogues with User Belief Modeling",
-    "papers": 1,
-    "tags": [
-      "paper-summary",
-      "literature-review"
-    ],
-    "file": "posts/2026-03-30.md"
+    "category": "World Models",
+    "file": "posts/2026-03-30.md",
+    "anchor": "dream-to-chat-model-based-reinforcement-learning-on-dialogues-with-user-belief-modeling"
   },
   {
     "date": "2026-03-29",
     "title": "Interdisciplinary Applications of Artificial Intelligence in Scientific Research",
-    "papers": 1,
-    "tags": [
-      "paper-summary",
-      "literature-review"
-    ],
-    "file": "posts/2026-03-29.md"
+    "category": "HCI/Creativity",
+    "file": "posts/2026-03-29.md",
+    "anchor": "interdisciplinary-applications-of-artificial-intelligence-in-scientific-research"
   },
   {
     "date": "2026-03-27",
     "title": "Kinema4D: Kinematic 4D World Modeling for Spatiotemporal Embodied Simulation",
-    "papers": 6,
-    "tags": [
-      "paper-summary",
-      "literature-review"
-    ],
-    "file": "posts/2026-03-27.md"
+    "category": "World Models",
+    "file": "posts/2026-03-27.md",
+    "anchor": "1-kinema4d-kinematic-4d-world-modeling-for-spatiotemporal-embodied-simulation"
+  },
+  {
+    "date": "2026-03-27",
+    "title": "DualCoT-VLA: Visual-Linguistic Chain of Thought via Parallel Reasoning for Vision-Language-Action Models",
+    "category": "Multimodal/VLM",
+    "file": "posts/2026-03-27.md",
+    "anchor": "2-dualcot-vla-visual-linguistic-chain-of-thought-via-parallel-reasoning-for-vision-language-action-models"
+  },
+  {
+    "date": "2026-03-27",
+    "title": "TIPS: Turn-Level Information-Potential Reward Shaping for Search-Augmented LLMs",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-03-27.md",
+    "anchor": "3-tips-turn-level-information-potential-reward-shaping-for-search-augmented-llms"
+  },
+  {
+    "date": "2026-03-27",
+    "title": "DynVLA: Learning World Dynamics for Action Reasoning in Autonomous Driving",
+    "category": "World Models",
+    "file": "posts/2026-03-27.md",
+    "anchor": "4-dynvla-learning-world-dynamics-for-action-reasoning-in-autonomous-driving"
+  },
+  {
+    "date": "2026-03-27",
+    "title": "VideoITG: Multimodal Video Understanding with Instructed Temporal Grounding",
+    "category": "Multimodal/VLM",
+    "file": "posts/2026-03-27.md",
+    "anchor": "5-videoitg-multimodal-video-understanding-with-instructed-temporal-grounding"
+  },
+  {
+    "date": "2026-03-27",
+    "title": "Do 3D Large Language Models Really Understand 3D Spatial Relationships?",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-03-27.md",
+    "anchor": "6-do-3d-large-language-models-really-understand-3d-spatial-relationships"
   }
 ]
