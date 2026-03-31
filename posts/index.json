@@ -1,10 +1,10 @@
 [
   {
     "date": "2026-03-31",
-    "title": "Interpretability, Then What? Editing ML Models to Reflect Human Knowledge and Values",
+    "title": "Interpretability, Then What? Editing Machine Learning Models to Reflect Human Knowledge and Values",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "11-interpretability-then-what-editing-ml-models-to-reflect-human-knowledge-and-values",
+    "anchor": "11-interpretability-then-what-editing-machine-learning-models-to-reflect-human-knowledge-and-values",
     "links": [
       {
         "label": "arXiv",
@@ -14,10 +14,10 @@
   },
   {
     "date": "2026-03-31",
-    "title": "AI Chains: Transparent and Controllable Human-AI Interaction by Chaining LLM Prompts",
+    "title": "AI Chains: Transparent and Controllable Human-AI Interaction by Chaining Large Language Model Prompts",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "12-ai-chains-transparent-and-controllable-human-ai-interaction-by-chaining-llm-prompts",
+    "anchor": "12-ai-chains-transparent-and-controllable-human-ai-interaction-by-chaining-large-language-model-prompts",
     "links": [
       {
         "label": "arXiv",
@@ -27,10 +27,10 @@
   },
   {
     "date": "2026-03-31",
-    "title": "ConstitutionMaker: Interactively Critiquing LLMs by Converting Feedback into Principles",
+    "title": "ConstitutionMaker: Interactively Critiquing Large Language Models by Converting Feedback into Principles",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "13-constitutionmaker-interactively-critiquing-llms-by-converting-feedback-into-principles",
+    "anchor": "13-constitutionmaker-interactively-critiquing-large-language-models-by-converting-feedback-into-principles",
     "links": [
       {
         "label": "arXiv",
