@@ -131,13 +131,28 @@ def build_index():
 
             anchor = slugify(title)
 
-            papers.append({
+            # Extract paper links (arXiv, ACL, Science, etc.)
+            link_match = re.search(r'\*\*Links?\*\*:?\s*(.+)', snippet)
+            links = []
+            if link_match:
+                for lm in re.finditer(r'\[([^\]]+)\]\(([^)]+)\)', link_match.group(1)):
+                    links.append({'label': lm.group(1), 'url': lm.group(2)})
+            # Also try to find arXiv URL in the section
+            if not links:
+                arxiv_match = re.search(r'https://arxiv\.org/abs/[\d.]+', snippet)
+                if arxiv_match:
+                    links.append({'label': 'arXiv', 'url': arxiv_match.group(0)})
+
+            entry = {
                 'date': date,
                 'title': clean_title,
                 'category': classify(clean_title, snippet),
                 'file': f'posts/{name}',
                 'anchor': anchor,
-            })
+            }
+            if links:
+                entry['links'] = links
+            papers.append(entry)
     
     with open('posts/index.json', 'w') as f:
         json.dump(papers, f, indent=2, ensure_ascii=False)

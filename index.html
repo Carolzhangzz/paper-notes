@@ -241,6 +241,13 @@
             return `<span class="cat-badge" data-cat="${cat}">${cat}</span>`;
         }
 
+        function paperLinks(links) {
+            if (!links || links.length === 0) return '';
+            return links.map(l =>
+                `<a href="${l.url}" target="_blank" onclick="event.stopPropagation();" style="color:#0969da;text-decoration:none;font-size:0.78rem;border:1px solid #d0d7de;border-radius:2em;padding:0.1rem 0.5rem;">${l.label}</a>`
+            ).join(' ');
+        }
+
         function paperCard(paper, idx) {
             return `
                 <li class="paper-item">
@@ -249,6 +256,7 @@
                         <div class="paper-meta">
                             <span>${paper.date}</span>
                             ${catBadge(paper.category)}
+                            ${paperLinks(paper.links)}
                         </div>
                     </a>
                 </li>`;
@@ -362,10 +370,11 @@
             const section = extractSection(md, paper.anchor);
             document.getElementById('postContent').innerHTML = marked.parse(section);
 
-            // Meta: date + category badge
+            // Meta: date + category badge + paper links
             document.getElementById('postMeta').innerHTML = `
                 <span class="date-badge">Added ${paper.date}</span>
                 ${catBadge(paper.category)}
+                ${paperLinks(paper.links)}
             `;
 
             // Navigation

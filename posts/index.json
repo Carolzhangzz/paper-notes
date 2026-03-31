@@ -4,84 +4,164 @@
     "title": "Interpretability, Then What? Editing ML Models to Reflect Human Knowledge and Values",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "11-interpretability-then-what-editing-ml-models-to-reflect-human-knowledge-and-values"
+    "anchor": "11-interpretability-then-what-editing-ml-models-to-reflect-human-knowledge-and-values",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2206.15465"
+      }
+    ]
   },
   {
     "date": "2026-03-31",
     "title": "AI Chains: Transparent and Controllable Human-AI Interaction by Chaining LLM Prompts",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "12-ai-chains-transparent-and-controllable-human-ai-interaction-by-chaining-llm-prompts"
+    "anchor": "12-ai-chains-transparent-and-controllable-human-ai-interaction-by-chaining-llm-prompts",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2110.01691"
+      }
+    ]
   },
   {
     "date": "2026-03-31",
     "title": "ConstitutionMaker: Interactively Critiquing LLMs by Converting Feedback into Principles",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "13-constitutionmaker-interactively-critiquing-llms-by-converting-feedback-into-principles"
+    "anchor": "13-constitutionmaker-interactively-critiquing-llms-by-converting-feedback-into-principles",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2310.15428"
+      }
+    ]
   },
   {
     "date": "2026-03-31",
     "title": "Prompting for Discovery: Flexible Sense-Making for AI Art-Making with Dreamsheets",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "14-prompting-for-discovery-flexible-sense-making-for-ai-art-making-with-dreamsheets"
+    "anchor": "14-prompting-for-discovery-flexible-sense-making-for-ai-art-making-with-dreamsheets",
+    "links": [
+      {
+        "label": "ACM DL",
+        "url": "https://dl.acm.org/doi/10.1145/3613904.3642858"
+      }
+    ]
   },
   {
     "date": "2026-03-31",
     "title": "AI Policy Projector: Grounding LLM Policy Design in Iterative Mapmaking",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "15-ai-policy-projector-grounding-llm-policy-design-in-iterative-mapmaking"
+    "anchor": "15-ai-policy-projector-grounding-llm-policy-design-in-iterative-mapmaking",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2409.18203"
+      }
+    ]
   },
   {
     "date": "2026-03-31",
     "title": "Evaluating Feature Steering: A Case Study in Mitigating Social Biases",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "16-evaluating-feature-steering-a-case-study-in-mitigating-social-biases"
+    "anchor": "16-evaluating-feature-steering-a-case-study-in-mitigating-social-biases",
+    "links": [
+      {
+        "label": "Anthropic",
+        "url": "https://www.anthropic.com/research/evaluating-feature-steering"
+      }
+    ]
   },
   {
     "date": "2026-03-31",
     "title": "Patchview: LLM-Powered Worldbuilding with Generative Dust and Magnet Visualization",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "17-patchview-llm-powered-worldbuilding-with-generative-dust-and-magnet-visualization"
+    "anchor": "17-patchview-llm-powered-worldbuilding-with-generative-dust-and-magnet-visualization",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2408.04112"
+      }
+    ]
   },
   {
     "date": "2026-03-31",
     "title": "Evaluating Non-AI Experts' Interaction with AI: A Case Study In Library Context",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "18-evaluating-non-ai-experts-interaction-with-ai-a-case-study-in-library-context"
+    "anchor": "18-evaluating-non-ai-experts-interaction-with-ai-a-case-study-in-library-context",
+    "links": [
+      {
+        "label": "ACM DL",
+        "url": "https://dl.acm.org/doi/10.1145/3706598.3714219"
+      }
+    ]
   },
   {
     "date": "2026-03-31",
     "title": "Better Slow than Sorry: Introducing Positive Friction for Reliable Dialogue Systems",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "19-better-slow-than-sorry-introducing-positive-friction-for-reliable-dialogue-systems"
+    "anchor": "19-better-slow-than-sorry-introducing-positive-friction-for-reliable-dialogue-systems",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2501.17348"
+      }
+    ]
   },
   {
     "date": "2026-03-31",
     "title": "Evolving AI Collectives to Enhance Human Diversity and Enable Self-Regulation",
     "category": "AI Safety",
     "file": "posts/2026-03-31.md",
-    "anchor": "2-evolving-ai-collectives-to-enhance-human-diversity-and-enable-self-regulation"
+    "anchor": "2-evolving-ai-collectives-to-enhance-human-diversity-and-enable-self-regulation",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2402.12590"
+      }
+    ]
   },
   {
     "date": "2026-03-31",
     "title": "Sycophantic AI Decreases Prosocial Intentions and Promotes Dependence",
     "category": "AI Safety",
     "file": "posts/2026-03-31.md",
-    "anchor": "3-sycophantic-ai-decreases-prosocial-intentions-and-promotes-dependence"
+    "anchor": "3-sycophantic-ai-decreases-prosocial-intentions-and-promotes-dependence",
+    "links": [
+      {
+        "label": "Science",
+        "url": "https://www.science.org/doi/10.1126/science.aec8352"
+      },
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2510.01395"
+      }
+    ]
   },
   {
     "date": "2026-03-30",
     "title": "Dream to Chat: Model-based Reinforcement Learning on Dialogues with User Belief Modeling",
     "category": "World Models",
     "file": "posts/2026-03-30.md",
-    "anchor": "dream-to-chat-model-based-reinforcement-learning-on-dialogues-with-user-belief-modeling"
+    "anchor": "dream-to-chat-model-based-reinforcement-learning-on-dialogues-with-user-belief-modeling",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2508.16876"
+      },
+      {
+        "label": "ACL Anthology",
+        "url": "https://aclanthology.org/2025.findings-emnlp.256/"
+      }
+    ]
   },
   {
     "date": "2026-03-29",
