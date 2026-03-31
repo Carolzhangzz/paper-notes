@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paper Notes</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown-light.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,53 +16,153 @@
         .header {
             background: #24292f;
             color: white;
-            padding: 2rem;
+            padding: 2rem 2rem 0;
             text-align: center;
         }
         .header h1 { font-size: 1.8rem; font-weight: 600; }
         .header p { color: #8b949e; margin-top: 0.5rem; font-size: 0.95rem; }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            margin-top: 1.2rem;
+        }
+        .tab {
+            padding: 0.6rem 1.8rem;
+            color: #8b949e;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: color 0.15s, border-color 0.15s;
+            user-select: none;
+        }
+        .tab:hover { color: #c9d1d9; }
+        .tab.active {
+            color: white;
+            border-bottom-color: #f78166;
+        }
+
         .container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; }
-        .post-list { list-style: none; }
-        .post-item {
+
+        /* Paper cards */
+        .paper-list { list-style: none; }
+        .paper-item {
             background: white;
             border: 1px solid #d0d7de;
             border-radius: 6px;
-            margin-bottom: 1rem;
+            margin-bottom: 0.75rem;
             transition: box-shadow 0.2s;
         }
-        .post-item:hover { box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
-        .post-item a {
+        .paper-item:hover { box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+        .paper-item a {
             display: block;
-            padding: 1.2rem 1.5rem;
+            padding: 1rem 1.2rem;
             text-decoration: none;
             color: inherit;
         }
-        .post-date { color: #656d76; font-size: 0.85rem; }
-        .post-title { font-size: 1.1rem; font-weight: 600; margin-top: 0.3rem; color: #0969da; }
-        .post-meta { color: #656d76; font-size: 0.85rem; margin-top: 0.4rem; }
-        .tag {
-            display: inline-block;
-            background: #ddf4ff;
-            color: #0969da;
-            padding: 0.15rem 0.5rem;
-            border-radius: 2em;
-            font-size: 0.75rem;
-            margin-right: 0.3rem;
+        .paper-title { font-size: 1rem; font-weight: 600; color: #0969da; }
+        .paper-meta {
+            color: #656d76;
+            font-size: 0.82rem;
+            margin-top: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
         }
 
-        /* Post view */
-        .post-view { display: none; }
-        .post-view.active { display: block; }
-        .list-view.hidden { display: none; }
+        /* Category badges */
+        .cat-badge {
+            display: inline-block;
+            padding: 0.12rem 0.5rem;
+            border-radius: 2em;
+            font-size: 0.72rem;
+            font-weight: 500;
+        }
+        .cat-badge[data-cat="World Models"]    { background: #dafbe1; color: #116329; }
+        .cat-badge[data-cat="Embodied AI"]     { background: #fff8c5; color: #735c0f; }
+        .cat-badge[data-cat="HCI/Creativity"]  { background: #fbefff; color: #8250df; }
+        .cat-badge[data-cat="AI Safety"]       { background: #ffebe9; color: #cf222e; }
+        .cat-badge[data-cat="Multimodal/VLM"]  { background: #ddf4ff; color: #0969da; }
+        .cat-badge[data-cat="AI for Science"]  { background: #fff1e5; color: #bc4c00; }
+        .cat-badge[data-cat="LLM/Foundation"]  { background: #eef1f6; color: #424a53; }
+        .cat-badge[data-cat="Survey"]          { background: #f0f0f0; color: #57606a; }
+
+        /* Topics view */
+        .category-section { margin-bottom: 2rem; }
+        .category-header {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 1px solid #d0d7de;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .category-count {
+            font-size: 0.78rem;
+            font-weight: 400;
+            color: #656d76;
+        }
+
+        /* View management */
+        .view { display: none; }
+        .view.active { display: block; }
+
+        /* Post detail view */
+        .post-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
         .back-btn {
             display: inline-block;
             color: #0969da;
             cursor: pointer;
             font-size: 0.9rem;
-            margin-bottom: 1rem;
             text-decoration: none;
         }
         .back-btn:hover { text-decoration: underline; }
+        .post-nav-arrows {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .nav-arrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            color: #656d76;
+            cursor: pointer;
+            font-size: 0.9rem;
+            background: white;
+            transition: all 0.15s;
+            text-decoration: none;
+        }
+        .nav-arrow:hover { border-color: #0969da; color: #0969da; }
+        .nav-arrow.disabled { opacity: 0.3; pointer-events: none; }
+        .post-header-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+            font-size: 0.82rem;
+            color: #656d76;
+        }
+        .post-header-meta .date-badge {
+            background: #f6f8fa;
+            border: 1px solid #d0d7de;
+            border-radius: 2em;
+            padding: 0.15rem 0.6rem;
+        }
         .markdown-body {
             background: white;
             border: 1px solid #d0d7de;
@@ -74,6 +175,7 @@
         @media (max-width: 768px) {
             .container { padding: 0 1rem; }
             .markdown-body { padding: 1.2rem; }
+            .tab { padding: 0.5rem 1.2rem; }
         }
     </style>
 </head>
@@ -81,138 +183,205 @@
     <div class="header">
         <h1>Paper Notes</h1>
         <p>Daily paper reading summaries & analysis</p>
+        <div class="tabs">
+            <div class="tab active" data-view="timeline">Timeline</div>
+            <div class="tab" data-view="topics">Topics</div>
+        </div>
     </div>
 
     <div class="container">
-        <div class="list-view" id="listView">
-            <ul class="post-list" id="postList"></ul>
+        <div class="view active" id="timelineView">
+            <ul class="paper-list" id="timelineList"></ul>
         </div>
 
-        <div class="post-view" id="postView">
-            <a class="back-btn" onclick="showList()">&larr; Back to list</a>
+        <div class="view" id="topicsView">
+            <div id="topicsList"></div>
+        </div>
+
+        <div class="view" id="postView">
+            <div class="post-nav">
+                <a class="back-btn" id="backBtn">&larr; Back</a>
+                <div class="post-nav-arrows">
+                    <a class="nav-arrow" id="prevBtn" title="Previous paper">&larr;</a>
+                    <span id="postCounter" style="font-size:0.78rem;color:#656d76;min-width:3.5rem;text-align:center;"></span>
+                    <a class="nav-arrow" id="nextBtn" title="Next paper">&rarr;</a>
+                </div>
+            </div>
+            <div class="post-header-meta" id="postMeta"></div>
             <div class="markdown-body" id="postContent"></div>
+            <div class="post-nav" style="margin-top:1.5rem;">
+                <a class="nav-arrow" id="prevBtn2" title="Previous paper">&larr; Prev</a>
+                <a class="nav-arrow" id="nextBtn2" title="Next paper" style="width:auto;padding:0 0.8rem;">Next &rarr;</a>
+            </div>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
     <script>
-        let posts = [];
+        let papers = [];
+        let activeTab = 'timeline';
 
-        // Auto-discover posts from posts/index.json (generated at build time)
-        // Falls back to GitHub API if index.json is unavailable
-        async function loadPosts() {
-            try {
-                // Try index.json first (works locally and on GitHub Pages)
-                const resp = await fetch('posts/index.json');
-                if (resp.ok) {
-                    posts = await resp.json();
-                    renderList();
-                    return;
-                }
-            } catch (e) {}
-
-            // Fallback: try GitHub API
-            try {
-                const resp = await fetch('https://api.github.com/repos/Carolzhangzz/paper-notes/contents/posts');
-                if (resp.ok) {
-                    const files = await resp.json();
-                    const mdFiles = files
-                        .filter(f => f.name.endsWith('.md'))
-                        .map(f => f.name)
-                        .sort()
-                        .reverse();
-
-                    posts = [];
-                    for (const name of mdFiles) {
-                        const date = name.replace('.md', '');
-                        const mdResp = await fetch(`posts/${name}`);
-                        if (!mdResp.ok) continue;
-                        const md = await mdResp.text();
-                        const meta = parseFrontmatter(md);
-                        const firstH2 = md.match(/^## (.+)$/m);
-                        posts.push({
-                            date: date,
-                            title: firstH2 ? firstH2[1] : date,
-                            papers: meta.papers || '?',
-                            tags: meta.tags || ['paper-summary'],
-                            file: `posts/${name}`
-                        });
-                    }
-                    renderList();
-                    return;
-                }
-            } catch (e) {}
-
-            document.getElementById('postList').innerHTML =
-                '<li style="text-align:center;padding:2rem;color:#656d76;">No posts found. Push some markdown files to posts/</li>';
-        }
-
-        function parseFrontmatter(md) {
-            const match = md.match(/^---\s*\n([\s\S]*?)\n---/);
-            if (!match) return {};
-            const meta = {};
-            match[1].split('\n').forEach(line => {
-                const m = line.match(/^(\w+):\s*(.+)/);
-                if (!m) return;
-                let val = m[2].trim();
-                if (val.startsWith('[')) {
-                    try { val = JSON.parse(val.replace(/'/g, '"')); } catch(e) {}
-                } else if (!isNaN(val)) {
-                    val = Number(val);
-                }
-                meta[m[1]] = val;
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const view = tab.dataset.view;
+                activeTab = view;
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                showView(view);
             });
-            return meta;
+        });
+
+        function showView(view) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.getElementById(view + 'View').classList.add('active');
         }
 
-        function renderList() {
-            const list = document.getElementById('postList');
-            if (posts.length === 0) {
-                list.innerHTML = '<li style="text-align:center;padding:2rem;color:#656d76;">No posts yet.</li>';
-                return;
-            }
-            list.innerHTML = posts.map((p, i) => `
-                <li class="post-item">
-                    <a href="#" onclick="showPost(${i}); return false;">
-                        <div class="post-date">${p.date}</div>
-                        <div class="post-title">${p.title}</div>
-                        <div class="post-meta">
-                            ${p.papers} papers &nbsp;
-                            ${(p.tags || []).map(t => `<span class="tag">${t}</span>`).join('')}
+        function catBadge(cat) {
+            return `<span class="cat-badge" data-cat="${cat}">${cat}</span>`;
+        }
+
+        function paperCard(paper, idx) {
+            return `
+                <li class="paper-item">
+                    <a href="#" onclick="showPost(${idx}); return false;">
+                        <div class="paper-title">${paper.title}</div>
+                        <div class="paper-meta">
+                            <span>${paper.date}</span>
+                            ${catBadge(paper.category)}
                         </div>
                     </a>
-                </li>
-            `).join('');
+                </li>`;
+        }
+
+        // Timeline: all papers sorted by date desc
+        function renderTimeline() {
+            const list = document.getElementById('timelineList');
+            if (papers.length === 0) {
+                list.innerHTML = '<li style="text-align:center;padding:2rem;color:#656d76;">No papers yet.</li>';
+                return;
+            }
+            const sorted = papers.map((p, i) => ({...p, _idx: i}))
+                .sort((a, b) => b.date.localeCompare(a.date));
+            list.innerHTML = sorted.map(p => paperCard(p, p._idx)).join('');
+        }
+
+        // Topics: grouped by category
+        function renderTopics() {
+            const container = document.getElementById('topicsList');
+            const groups = {};
+            papers.forEach((p, i) => {
+                if (!groups[p.category]) groups[p.category] = [];
+                groups[p.category].push({...p, _idx: i});
+            });
+
+            // Sort categories by paper count desc
+            const sortedCats = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
+
+            container.innerHTML = sortedCats.map(cat => {
+                const items = groups[cat].sort((a, b) => b.date.localeCompare(a.date));
+                return `
+                    <div class="category-section">
+                        <div class="category-header">
+                            ${catBadge(cat)}
+                            <span class="category-count">${items.length} paper${items.length > 1 ? 's' : ''}</span>
+                        </div>
+                        <ul class="paper-list">
+                            ${items.map(p => paperCard(p, p._idx)).join('')}
+                        </ul>
+                    </div>`;
+            }).join('');
+        }
+
+        // Heading text to anchor slug (matches marked.js default)
+        function slugify(text) {
+            return text.toLowerCase()
+                .replace(/<[^>]*>/g, '')
+                .replace(/[^\w\s-]/g, '')
+                .trim()
+                .replace(/\s+/g, '-');
+        }
+
+        let currentPostIndex = -1;
+
+        // Get sorted paper indices (by date desc, matching timeline order)
+        function getSortedIndices() {
+            return papers.map((p, i) => ({...p, _idx: i}))
+                .sort((a, b) => b.date.localeCompare(a.date))
+                .map(p => p._idx);
         }
 
         async function showPost(index) {
-            const post = posts[index];
-            const resp = await fetch(post.file);
+            currentPostIndex = index;
+            const paper = papers[index];
+            const resp = await fetch(paper.file);
             let md = await resp.text();
-            // Remove frontmatter
             md = md.replace(/^---[\s\S]*?---\s*/, '');
             document.getElementById('postContent').innerHTML = marked.parse(md);
-            document.getElementById('listView').classList.add('hidden');
-            document.getElementById('postView').classList.add('active');
-            window.scrollTo(0, 0);
-        }
 
-        function showList() {
-            document.getElementById('listView').classList.remove('hidden');
-            document.getElementById('postView').classList.remove('active');
-        }
+            // Meta: date + category badge
+            document.getElementById('postMeta').innerHTML = `
+                <span class="date-badge">Added ${paper.date}</span>
+                ${catBadge(paper.category)}
+            `;
 
-        // Check URL hash for direct post link
-        function checkHash() {
-            const hash = window.location.hash.slice(1);
-            if (hash) {
-                const idx = posts.findIndex(p => p.date === hash);
-                if (idx >= 0) showPost(idx);
+            // Navigation
+            const sorted = getSortedIndices();
+            const posInSorted = sorted.indexOf(index);
+            const hasPrev = posInSorted > 0;
+            const hasNext = posInSorted < sorted.length - 1;
+
+            // Counter
+            document.getElementById('postCounter').textContent = `${posInSorted + 1} / ${sorted.length}`;
+
+            // Wire up prev/next (top)
+            function setupNav(prevId, nextId) {
+                const prevBtn = document.getElementById(prevId);
+                const nextBtn = document.getElementById(nextId);
+                prevBtn.className = `nav-arrow${hasPrev ? '' : ' disabled'}`;
+                nextBtn.className = `nav-arrow${hasNext ? '' : ' disabled'}`;
+                prevBtn.onclick = hasPrev ? () => showPost(sorted[posInSorted - 1]) : null;
+                nextBtn.onclick = hasNext ? () => showPost(sorted[posInSorted + 1]) : null;
+            }
+            setupNav('prevBtn', 'nextBtn');
+            setupNav('prevBtn2', 'nextBtn2');
+
+            // Back button
+            document.getElementById('backBtn').onclick = () => {
+                showView(activeTab);
+                document.querySelectorAll('.tab').forEach(t => {
+                    t.classList.toggle('active', t.dataset.view === activeTab);
+                });
+            };
+
+            showView('post');
+
+            // Scroll to anchor if available
+            if (paper.anchor) {
+                setTimeout(() => {
+                    const target = document.getElementById(paper.anchor);
+                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            } else {
+                window.scrollTo(0, 0);
             }
         }
 
-        loadPosts().then(() => checkHash());
-        window.addEventListener('hashchange', checkHash);
+        async function loadPosts() {
+            try {
+                const resp = await fetch('posts/index.json');
+                if (resp.ok) {
+                    papers = await resp.json();
+                    renderTimeline();
+                    renderTopics();
+                    return;
+                }
+            } catch (e) {}
+            document.getElementById('timelineList').innerHTML =
+                '<li style="text-align:center;padding:2rem;color:#656d76;">No papers found.</li>';
+        }
+
+        loadPosts();
     </script>
 </body>
 </html>
