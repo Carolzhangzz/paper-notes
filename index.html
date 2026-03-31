@@ -311,13 +311,56 @@
                 .map(p => p._idx);
         }
 
+        // Extract just one paper's section from the full markdown
+        function extractSection(md, anchor) {
+            if (!anchor) return md;
+
+            const lines = md.split('\n');
+            let startLine = -1;
+            let startLevel = 0;
+
+            // Find the heading that matches the anchor
+            for (let i = 0; i < lines.length; i++) {
+                const hMatch = lines[i].match(/^(#{2,3})\s+(.+)$/);
+                if (hMatch) {
+                    const lineSlug = slugify(hMatch[2]);
+                    if (lineSlug === anchor) {
+                        startLine = i;
+                        startLevel = hMatch[1].length; // 2 for ##, 3 for ###
+                        break;
+                    }
+                }
+            }
+            if (startLine === -1) return md; // anchor not found, show all
+
+            // Find the end: next heading of same or higher level
+            let endLine = lines.length;
+            for (let i = startLine + 1; i < lines.length; i++) {
+                const hMatch = lines[i].match(/^(#{2,3})\s+/);
+                if (hMatch && hMatch[1].length <= startLevel) {
+                    endLine = i;
+                    break;
+                }
+            }
+
+            // Promote ### to ## for display if needed
+            let section = lines.slice(startLine, endLine).join('\n');
+            if (startLevel === 3) {
+                section = section.replace(/^###\s+/, '## ');
+            }
+            return section;
+        }
+
         async function showPost(index) {
             currentPostIndex = index;
             const paper = papers[index];
             const resp = await fetch(paper.file);
             let md = await resp.text();
             md = md.replace(/^---[\s\S]*?---\s*/, '');
-            document.getElementById('postContent').innerHTML = marked.parse(md);
+
+            // Extract only this paper's section
+            const section = extractSection(md, paper.anchor);
+            document.getElementById('postContent').innerHTML = marked.parse(section);
 
             // Meta: date + category badge
             document.getElementById('postMeta').innerHTML = `
@@ -355,16 +398,7 @@
             };
 
             showView('post');
-
-            // Scroll to anchor if available
-            if (paper.anchor) {
-                setTimeout(() => {
-                    const target = document.getElementById(paper.anchor);
-                    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
-            } else {
-                window.scrollTo(0, 0);
-            }
+            window.scrollTo(0, 0);
         }
 
         async function loadPosts() {
