@@ -1,10 +1,66 @@
 [
   {
     "date": "2026-03-31",
-    "title": "Human-AI Interaction for Steering and Alignment — 9-Paper Reading List",
+    "title": "Interpretability, Then What? Editing ML Models to Reflect Human Knowledge and Values",
     "category": "HCI/Creativity",
     "file": "posts/2026-03-31.md",
-    "anchor": "1-human-ai-interaction-for-steering-and-alignment-9-paper-reading-list"
+    "anchor": "11-interpretability-then-what-editing-ml-models-to-reflect-human-knowledge-and-values"
+  },
+  {
+    "date": "2026-03-31",
+    "title": "AI Chains: Transparent and Controllable Human-AI Interaction by Chaining LLM Prompts",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-03-31.md",
+    "anchor": "12-ai-chains-transparent-and-controllable-human-ai-interaction-by-chaining-llm-prompts"
+  },
+  {
+    "date": "2026-03-31",
+    "title": "ConstitutionMaker: Interactively Critiquing LLMs by Converting Feedback into Principles",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-03-31.md",
+    "anchor": "13-constitutionmaker-interactively-critiquing-llms-by-converting-feedback-into-principles"
+  },
+  {
+    "date": "2026-03-31",
+    "title": "Prompting for Discovery: Flexible Sense-Making for AI Art-Making with Dreamsheets",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-03-31.md",
+    "anchor": "14-prompting-for-discovery-flexible-sense-making-for-ai-art-making-with-dreamsheets"
+  },
+  {
+    "date": "2026-03-31",
+    "title": "AI Policy Projector: Grounding LLM Policy Design in Iterative Mapmaking",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-03-31.md",
+    "anchor": "15-ai-policy-projector-grounding-llm-policy-design-in-iterative-mapmaking"
+  },
+  {
+    "date": "2026-03-31",
+    "title": "Evaluating Feature Steering: A Case Study in Mitigating Social Biases",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-03-31.md",
+    "anchor": "16-evaluating-feature-steering-a-case-study-in-mitigating-social-biases"
+  },
+  {
+    "date": "2026-03-31",
+    "title": "Patchview: LLM-Powered Worldbuilding with Generative Dust and Magnet Visualization",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-03-31.md",
+    "anchor": "17-patchview-llm-powered-worldbuilding-with-generative-dust-and-magnet-visualization"
+  },
+  {
+    "date": "2026-03-31",
+    "title": "Evaluating Non-AI Experts' Interaction with AI: A Case Study In Library Context",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-03-31.md",
+    "anchor": "18-evaluating-non-ai-experts-interaction-with-ai-a-case-study-in-library-context"
+  },
+  {
+    "date": "2026-03-31",
+    "title": "Better Slow than Sorry: Introducing Positive Friction for Reliable Dialogue Systems",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-03-31.md",
+    "anchor": "19-better-slow-than-sorry-introducing-positive-friction-for-reliable-dialogue-systems"
   },
   {
     "date": "2026-03-31",

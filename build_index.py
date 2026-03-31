@@ -58,11 +58,10 @@ def build_index():
         # Remove frontmatter
         body = re.sub(r'^---\s*\n.*?\n---\s*', '', content, flags=re.S)
         
-        # Find all ## headings (individual papers)
-        headings = list(re.finditer(r'^## (.+)$', body, re.M))
-        
-        if not headings:
-            # No sub-papers, treat whole file as one entry
+        # Find all ## and ### headings
+        all_headings = list(re.finditer(r'^(#{2,3}) (.+)$', body, re.M))
+
+        if not all_headings:
             title_match = re.search(r'^# (.+)$', body, re.M)
             title = title_match.group(1) if title_match else date
             papers.append({
@@ -72,25 +71,66 @@ def build_index():
                 'file': f'posts/{name}',
             })
             continue
-        
-        for i, match in enumerate(headings):
-            title = match.group(1).strip()
-            
-            # Skip non-paper headings (like "Cross-Cutting Themes")
-            skip_patterns = ['cross-cutting', 'theme', 'summary', 'paper notes']
+
+        for i, match in enumerate(all_headings):
+            level = match.group(1)  # ## or ###
+            title = match.group(2).strip()
+
+            # Skip non-paper headings
+            skip_patterns = ['cross-cutting', 'theme', 'summary', 'paper notes',
+                             'build-on', 'trend signal', 'multi-perspective',
+                             'core problem', 'key contribution', 'method', 'results']
             if any(p in title.lower() for p in skip_patterns):
                 continue
-            
+
             # Get content snippet for this section
             start = match.end()
-            end = headings[i+1].start() if i+1 < len(headings) else len(body)
+            end = all_headings[i+1].start() if i+1 < len(all_headings) else len(body)
             snippet = body[start:start+800]
-            
-            # Clean title: remove numbering like "1. " or "1.1 " or "1.9 "
+
+            # Detect if this is a paper entry (has Authors/Venue or Core Problem)
+            is_paper = bool(re.search(r'Authors|Venue|Core Problem|Key Contribution|arXiv|CHI|ICML|EMNLP|NeurIPS|Science\b', snippet))
+
+            # ## heading that contains ### sub-papers: skip the container
+            if level == '##':
+                # Check if ### children have paper TITLES (not just section headings)
+                has_sub_papers = False
+                for j in range(i+1, len(all_headings)):
+                    if all_headings[j].group(1) == '##':
+                        break
+                    if all_headings[j].group(1) == '###':
+                        sub_title = all_headings[j].group(2).strip().lower()
+                        # Section headings like "Core Problem", "Method" are NOT sub-papers
+                        section_names = ['core problem', 'key contribution', 'method', 'results',
+                                        'multi-perspective', 'build-on', 'trend signal',
+                                        'cross-cutting']
+                        if any(sub_title.startswith(s) for s in section_names):
+                            continue
+                        # This ### has a real paper title — check if it has Authors/Venue
+                        sub_start = all_headings[j].end()
+                        sub_end = all_headings[j+1].start() if j+1 < len(all_headings) else len(body)
+                        sub_snippet = body[sub_start:sub_start+500]
+                        if re.search(r'Authors.*Venue|Venue.*Authors', sub_snippet):
+                            has_sub_papers = True
+                            break
+                if has_sub_papers:
+                    continue  # skip container, extract sub-papers below
+
+            # ### headings: only include if they look like paper entries (not section headings)
+            if level == '###':
+                section_names = ['core problem', 'key contribution', 'method', 'results',
+                                'multi-perspective', 'build-on', 'trend signal',
+                                'cross-cutting']
+                if any(title.lower().startswith(s) for s in section_names):
+                    continue
+                if not is_paper:
+                    continue
+
+            # Clean title
             clean_title = re.sub(r'^\d+(\.\d+)?\s*\.?\s*', '', title).strip()
-            
+
             anchor = slugify(title)
-            
+
             papers.append({
                 'date': date,
                 'title': clean_title,
