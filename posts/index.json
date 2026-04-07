@@ -1,5 +1,103 @@
 [
   {
+    "date": "2026-04-07",
+    "title": "Out of Sight but Not Out of Mind: Hybrid Memory for Dynamic Video World Models",
+    "category": "World Models",
+    "file": "posts/2026-04-07.md",
+    "anchor": "1-out-of-sight-but-not-out-of-mind-hybrid-memory-for-dynamic-video-world-models",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2603.25716"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-07",
+    "title": "Mixture of Contexts for Long Video Generation (MoC)",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-07.md",
+    "anchor": "2-mixture-of-contexts-for-long-video-generation-moc",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2508.21058"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-02",
+    "title": "Evolving AI Collectives Enhance Human Diversity and Enable Self-Regulation",
+    "category": "AI Safety",
+    "file": "posts/2026-04-02.md",
+    "anchor": "evolving-ai-collectives-enhance-human-diversity-and-enable-self-regulation",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2402.12590"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-02",
+    "title": "Sycophantic AI decreases prosocial intentions and promotes dependence",
+    "category": "AI Safety",
+    "file": "posts/2026-04-02.md",
+    "anchor": "sycophantic-ai-decreases-prosocial-intentions-and-promotes-dependence",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2510.01395"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-02",
+    "title": "Empowering AI data scientists using a multi-agent LLM framework with self-evolving capabilities",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-02.md",
+    "anchor": "empowering-ai-data-scientists-using-a-multi-agent-llm-framework-with-self-evolving-capabilities"
+  },
+  {
+    "date": "2026-04-02",
+    "title": "Hypothesis Generation with Large Language Models",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-02.md",
+    "anchor": "hypothesis-generation-with-large-language-models",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2404.04326"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-02",
+    "title": "MolmoAct: Action Reasoning Models that can Reason in Space",
+    "category": "Embodied AI",
+    "file": "posts/2026-04-02.md",
+    "anchor": "molmoact-action-reasoning-models-that-can-reason-in-space",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2508.07917"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-02",
+    "title": "SAM2Act: Integrating Visual Foundation Model with A Memory Architecture for Robotic Manipulation",
+    "category": "Embodied AI",
+    "file": "posts/2026-04-02.md",
+    "anchor": "sam2act-integrating-visual-foundation-model-with-a-memory-architecture-for-robotic-manipulation",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2501.18564"
+      }
+    ]
+  },
+  {
     "date": "2026-03-31",
     "title": "Interpretability, Then What? Editing Machine Learning Models to Reflect Human Knowledge and Values",
     "category": "HCI/Creativity",
