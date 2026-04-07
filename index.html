@@ -5,426 +5,1544 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paper Notes</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown-light.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #faf9f7;
+            --surface: #fff;
+            --border: #e8e5e0;
+            --text: #2c2c2c;
+            --text-secondary: #8a8580;
+            --accent: #c45d3e;
+            --accent-light: #faf0ed;
+            --sidebar-bg: #f5f3f0;
+            --sidebar-w: 300px;
+            --reading-width: 720px;
+            --font-size: 16px;
+        }
+        [data-theme="dark"] {
+            --bg: #1a1a1a;
+            --surface: #242424;
+            --border: #333;
+            --text: #e0ddd8;
+            --text-secondary: #8a8580;
+            --accent: #e88d6d;
+            --accent-light: #2a2220;
+            --sidebar-bg: #1e1e1e;
+        }
+        [data-theme="dark"] .article-body { color: #ccc8c2; }
+        [data-theme="dark"] .article-body pre { background: #111; }
+        [data-theme="dark"] .article-body blockquote { background: #2a2220; }
+        [data-theme="dark"] .article-body th { background: #2a2a2a; }
+        [data-theme="dark"] .cn-block { background: #252220; border-left-color: #5a4a3a; color: #b5b0a8; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            background: #f6f8fa;
-            color: #1f2328;
-        }
-        .header {
-            background: #24292f;
-            color: white;
-            padding: 2rem 2rem 0;
-            text-align: center;
-        }
-        .header h1 { font-size: 1.8rem; font-weight: 600; }
-        .header p { color: #8b949e; margin-top: 0.5rem; font-size: 0.95rem; }
-
-        /* Tabs */
-        .tabs {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh;
             display: flex;
-            justify-content: center;
-            gap: 0;
-            margin-top: 1.2rem;
-        }
-        .tab {
-            padding: 0.6rem 1.8rem;
-            color: #8b949e;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            border-bottom: 2px solid transparent;
-            transition: color 0.15s, border-color 0.15s;
-            user-select: none;
-        }
-        .tab:hover { color: #c9d1d9; }
-        .tab.active {
-            color: white;
-            border-bottom-color: #f78166;
+            overflow: hidden;
         }
 
-        .container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; }
+        /* ===== Sidebar ===== */
+        .sidebar {
+            width: var(--sidebar-w);
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            height: 100vh;
+        }
 
-        /* Paper cards */
-        .paper-list { list-style: none; }
-        .paper-item {
-            background: white;
-            border: 1px solid #d0d7de;
+        .sidebar-header {
+            padding: 20px 20px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-header h1 {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-header h1 .logo-icon {
+            width: 22px;
+            height: 22px;
             border-radius: 6px;
-            margin-bottom: 0.75rem;
-            transition: box-shadow 0.2s;
-        }
-        .paper-item:hover { box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
-        .paper-item a {
-            display: block;
-            padding: 1rem 1.2rem;
-            text-decoration: none;
-            color: inherit;
-        }
-        .paper-title { font-size: 1rem; font-weight: 600; color: #0969da; }
-        .paper-meta {
-            color: #656d76;
-            font-size: 0.82rem;
-            margin-top: 0.35rem;
+            background: linear-gradient(135deg, #c45d3e, #e88d6d, #a855f7);
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+        .sidebar-header h1 .logo-icon i { width: 13px; height: 13px; }
+        .sidebar-header p {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            padding-left: 30px;
         }
 
-        /* Category badges */
-        .cat-badge {
-            display: inline-block;
-            padding: 0.12rem 0.5rem;
-            border-radius: 2em;
-            font-size: 0.72rem;
-            font-weight: 500;
+        .sidebar-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            padding: 0 12px;
         }
-        .cat-badge[data-cat="World Models"]    { background: #dafbe1; color: #116329; }
-        .cat-badge[data-cat="Embodied AI"]     { background: #fff8c5; color: #735c0f; }
-        .cat-badge[data-cat="HCI/Creativity"]  { background: #fbefff; color: #8250df; }
-        .cat-badge[data-cat="AI Safety"]       { background: #ffebe9; color: #cf222e; }
-        .cat-badge[data-cat="Multimodal/VLM"]  { background: #ddf4ff; color: #0969da; }
-        .cat-badge[data-cat="AI for Science"]  { background: #fff1e5; color: #bc4c00; }
-        .cat-badge[data-cat="LLM/Foundation"]  { background: #eef1f6; color: #424a53; }
-        .cat-badge[data-cat="Survey"]          { background: #f0f0f0; color: #57606a; }
-
-        /* Topics view */
-        .category-section { margin-bottom: 2rem; }
-        .category-header {
-            font-size: 1.1rem;
+        .sidebar-tab {
+            padding: 10px 12px;
+            font-size: 12px;
             font-weight: 600;
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.4rem;
-            border-bottom: 1px solid #d0d7de;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 5px;
         }
-        .category-count {
-            font-size: 0.78rem;
-            font-weight: 400;
-            color: #656d76;
+        .sidebar-tab i { width: 14px; height: 14px; }
+        .sidebar-tab:hover { color: var(--text); }
+        .sidebar-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+        .sidebar-search {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+        .sidebar-search i {
+            position: absolute;
+            left: 26px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            color: #b5b0aa;
+            pointer-events: none;
+        }
+        .sidebar-search input {
+            width: 100%;
+            padding: 7px 10px 7px 30px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 12px;
+            font-family: inherit;
+            background: var(--surface);
+            outline: none;
+            transition: all 0.2s;
+        }
+        .sidebar-search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(196, 93, 62, 0.1);
+        }
+        .sidebar-search input::placeholder { color: #b5b0aa; }
+
+        .sidebar-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 4px 0;
+        }
+        .sidebar-list::-webkit-scrollbar { width: 4px; }
+        .sidebar-list::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        .sidebar-item {
+            padding: 10px 20px 10px 16px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: all 0.1s;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .sidebar-item:hover { background: rgba(0,0,0,0.03); }
+        .sidebar-item.active {
+            background: var(--surface);
+            border-left-color: var(--accent);
+        }
+        .sidebar-item .read-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 6px;
+            transition: all 0.2s;
+        }
+        .sidebar-item.is-read .read-dot { background: transparent; }
+        .sidebar-item.is-read .sidebar-item-title { color: var(--text-secondary); font-weight: 500; }
+        .sidebar-item-content { flex: 1; min-width: 0; }
+        .sidebar-item-title {
+            font-size: 13px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: var(--text);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .sidebar-item.active .sidebar-item-title { color: var(--accent); }
+
+        /* Reading progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-w);
+            right: 0;
+            height: 3px;
+            background: var(--border);
+            z-index: 100;
+        }
+        .progress-bar .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #e88d6d);
+            width: 0%;
+            transition: width 0.1s;
         }
 
-        /* View management */
-        .view { display: none; }
-        .view.active { display: block; }
+        /* Sidebar stats bar */
+        .sidebar-stats {
+            padding: 6px 20px;
+            border-top: 1px solid var(--border);
+            font-size: 10px;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .sidebar-stats a {
+            color: var(--accent);
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .sidebar-stats a:hover { text-decoration: underline; }
 
-        /* Post detail view */
-        .post-nav {
+        /* Favorites star */
+        .fav-btn {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            margin-top: 3px;
+            cursor: pointer;
+            color: var(--border);
+            transition: all 0.15s;
+        }
+        .fav-btn:hover { color: #f59e0b; }
+        .fav-btn.is-fav { color: #f59e0b; fill: #f59e0b; }
+
+        /* Notes panel */
+        .notes-panel {
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+            padding: 12px 16px;
+            max-height: 200px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+        .notes-panel textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 8px 10px;
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            resize: vertical;
+            min-height: 60px;
+            background: var(--bg);
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        .notes-panel textarea:focus { border-color: var(--accent); }
+        .notes-panel-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
         }
-        .back-btn {
-            display: inline-block;
-            color: #0969da;
+        .notes-panel-header i { width: 12px; height: 12px; }
+        .notes-saved {
+            font-size: 9px;
+            color: #10b981;
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .notes-saved.show { opacity: 1; }
+
+        /* Notes indicator in sidebar */
+        .sidebar-item .has-note-icon {
+            width: 12px;
+            height: 12px;
+            color: #f59e0b;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        /* Bilingual toggle */
+        .lang-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 10px;
+            border: 1px solid var(--border);
+            border-radius: 2em;
+            font-size: 11px;
             cursor: pointer;
-            font-size: 0.9rem;
-            text-decoration: none;
+            background: var(--surface);
+            color: var(--text-secondary);
+            font-family: inherit;
+            transition: all 0.15s;
         }
-        .back-btn:hover { text-decoration: underline; }
-        .post-nav-arrows {
+        .lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+        .lang-toggle.active { background: var(--accent); color: white; border-color: var(--accent); }
+        .lang-toggle i { width: 13px; height: 13px; }
+
+        /* Chinese translation blocks */
+        .cn-block {
+            background: #faf8f5;
+            border-left: 3px solid #e8c9a0;
+            padding: 12px 16px;
+            margin: 8px 0 16px;
+            font-family: 'Inter', -apple-system, sans-serif;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #5a5450;
+            border-radius: 0 6px 6px 0;
+            display: none;
+        }
+        .cn-block.show { display: block; }
+        .cn-loading {
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-style: italic;
+        }
+        .sidebar-item-meta {
+            font-size: 10.5px;
+            color: var(--text-secondary);
+            margin-top: 3px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 6px;
         }
-        .nav-arrow {
+
+        .cat-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .cat-dot[data-cat="World Models"]    { background: #34a853; }
+        .cat-dot[data-cat="Embodied AI"]     { background: #f9ab00; }
+        .cat-dot[data-cat="HCI/Creativity"]  { background: #a855f7; }
+        .cat-dot[data-cat="AI Safety"]       { background: #ea4335; }
+        .cat-dot[data-cat="Multimodal/VLM"]  { background: #4285f4; }
+        .cat-dot[data-cat="AI for Science"]  { background: #ff6d01; }
+        .cat-dot[data-cat="LLM/Foundation"]  { background: #5f6368; }
+        .cat-dot[data-cat="Survey"]          { background: #9aa0a6; }
+
+        .cat-badge {
+            display: inline-block;
+            padding: 1px 8px;
+            border-radius: 2em;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .cat-badge[data-cat="World Models"]    { background: #e6f4ea; color: #1e7e34; }
+        .cat-badge[data-cat="Embodied AI"]     { background: #fef7e0; color: #8a6d00; }
+        .cat-badge[data-cat="HCI/Creativity"]  { background: #f3e8ff; color: #7c3aed; }
+        .cat-badge[data-cat="AI Safety"]       { background: #fce8e6; color: #c5221f; }
+        .cat-badge[data-cat="Multimodal/VLM"]  { background: #e8f0fe; color: #1a73e8; }
+        .cat-badge[data-cat="AI for Science"]  { background: #fce8d5; color: #c44a00; }
+        .cat-badge[data-cat="LLM/Foundation"]  { background: #f1f3f4; color: #3c4043; }
+        .cat-badge[data-cat="Survey"]          { background: #f1f3f4; color: #5f6368; }
+
+        /* Collection switcher */
+        .collection-bar {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+        .collection-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 2em;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text-secondary);
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .collection-chip i { width: 13px; height: 13px; }
+        .collection-chip:hover { border-color: #aaa; color: var(--text); }
+        .collection-chip.active {
+            border-color: var(--col-color, var(--accent));
+            background: var(--col-bg, var(--accent-light));
+            color: var(--col-color, var(--accent));
+        }
+        .collection-chip .chip-count {
+            font-size: 9px;
+            opacity: 0.7;
+        }
+
+        /* Category group headers in sidebar */
+        .sidebar-group-header {
+            padding: 12px 20px 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .sidebar-group-count {
+            font-weight: 400;
+            font-size: 10px;
+        }
+
+        /* Topics card grid */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            padding: 8px 10px;
+        }
+        .topic-card {
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            transition: all 0.15s;
+            position: relative;
+            overflow: hidden;
+        }
+        .topic-card:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .topic-card.expanded { grid-column: 1 / -1; border-color: var(--accent); }
+        .topic-card-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+            color: white;
+        }
+        .topic-card-icon i { width: 15px; height: 15px; }
+        .topic-card-name { font-size: 12px; font-weight: 600; color: var(--text); }
+        .topic-card-count { font-size: 10px; color: var(--text-secondary); margin-top: 1px; }
+        .topic-card-papers { margin-top: 8px; display: none; }
+        .topic-card.expanded .topic-card-papers { display: block; }
+        .topic-card-papers .sidebar-item { padding: 6px 4px; border-left: none; }
+
+        /* Floating TOC */
+        .toc-float {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            max-height: 60vh;
+            overflow-y: auto;
+            width: 180px;
+            padding: 8px 0;
+            z-index: 50;
+        }
+        .toc-float::-webkit-scrollbar { width: 0; }
+        .toc-item {
+            display: block;
+            padding: 3px 12px;
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.15s;
+            line-height: 1.4;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .toc-item:hover { color: var(--accent); }
+        .toc-item.active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+        .toc-item.depth-3 { padding-left: 20px; font-size: 9px; }
+        @media (max-width: 1200px) { .toc-float { display: none; } }
+
+        /* Reading stats mini */
+        .stats-bar {
+            display: flex;
+            gap: 12px;
+            padding: 8px 0;
+            margin-bottom: 8px;
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+        .stats-bar .stat { display: flex; align-items: center; gap: 3px; }
+        .stats-bar .stat i { width: 12px; height: 12px; }
+        .stats-bar .stat-num { font-weight: 700; color: var(--accent); }
+
+        /* ===== Reading Pane ===== */
+        .reading-pane {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
+            background: var(--bg);
+            scroll-behavior: smooth;
+        }
+        .reading-pane::-webkit-scrollbar { width: 6px; }
+        .reading-pane::-webkit-scrollbar-track { background: transparent; }
+        .reading-pane::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .reading-pane::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+        .reading-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            color: #c5c0ba;
+            font-size: 14px;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .reading-empty .empty-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f5f3f0, #ede9e4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #c5c0ba;
+        }
+        .reading-empty .empty-icon i { width: 28px; height: 28px; }
+        .reading-empty .empty-text { font-weight: 500; }
+        .reading-empty .empty-hint { font-size: 11px; color: #d5d0ca; }
+
+        .reading-content {
+            max-width: var(--reading-width);
+            width: 100%;
+            padding: 40px 48px 80px;
+        }
+
+        /* Article header */
+        .article-header {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+        .article-title {
+            font-family: 'Lora', Georgia, serif;
+            font-size: 28px;
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+        .article-header .article-cat-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+        }
+        .article-header .article-cat-icon i { width: 14px; height: 14px; }
+        .article-meta {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+        .article-meta a {
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            padding: 2px 10px;
+            border-radius: 2em;
+            font-size: 11px;
+            transition: all 0.15s;
+        }
+        .article-meta a:hover { background: var(--accent-light); border-color: var(--accent); }
+
+        /* Article navigation */
+        .article-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .article-nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 14px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            background: var(--surface);
+            font-family: inherit;
+            transition: all 0.15s;
+        }
+        .article-nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .article-nav-btn.disabled { opacity: 0.3; pointer-events: none; }
+        .article-counter { font-size: 11px; color: var(--text-secondary); }
+
+        /* Reading toolbar */
+        .reading-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+            margin-bottom: 16px;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .toolbar-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 32px;
             height: 32px;
-            border: 1px solid #d0d7de;
+            border: 1px solid var(--border);
             border-radius: 6px;
-            color: #656d76;
+            background: var(--surface);
+            color: var(--text-secondary);
             cursor: pointer;
-            font-size: 0.9rem;
-            background: white;
             transition: all 0.15s;
-            text-decoration: none;
+            font-family: inherit;
+            font-size: 13px;
         }
-        .nav-arrow:hover { border-color: #0969da; color: #0969da; }
-        .nav-arrow.disabled { opacity: 0.3; pointer-events: none; }
-        .post-header-meta {
+        .toolbar-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .toolbar-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+        .toolbar-btn i { width: 15px; height: 15px; }
+        .toolbar-sep { width: 1px; height: 20px; background: var(--border); margin: 0 4px; }
+        .reading-time {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-right: auto;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            margin-bottom: 1rem;
-            font-size: 0.82rem;
-            color: #656d76;
+            gap: 4px;
         }
-        .post-header-meta .date-badge {
-            background: #f6f8fa;
-            border: 1px solid #d0d7de;
-            border-radius: 2em;
-            padding: 0.15rem 0.6rem;
-        }
-        .markdown-body {
-            background: white;
-            border: 1px solid #d0d7de;
-            border-radius: 6px;
-            padding: 2rem;
-        }
-        .markdown-body h2 { border-bottom: 1px solid #d0d7de; padding-bottom: 0.3em; }
-        .markdown-body table { display: table; width: 100%; }
+        .reading-time i { width: 13px; height: 13px; }
 
-        @media (max-width: 768px) {
-            .container { padding: 0 1rem; }
-            .markdown-body { padding: 1.2rem; }
-            .tab { padding: 0.5rem 1.2rem; }
+        /* Focus mode */
+        body.focus-mode .sidebar { display: none; }
+        body.focus-mode .progress-bar { left: 0; }
+        body.focus-mode .reading-content { max-width: 680px; }
+
+        /* Smooth article transition */
+        .reading-content {
+            animation: fadeIn 0.25s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Article body — reader style */
+        .article-body {
+            font-family: 'Lora', Georgia, serif;
+            font-size: var(--font-size);
+            line-height: 1.85;
+            color: #333;
+            letter-spacing: 0.01em;
+        }
+        .article-body h1 { display: none; }
+        .article-body h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+            margin: 2.2em 0 0.8em;
+            padding-bottom: 0.4em;
+            border-bottom: 1px solid var(--border);
+        }
+        .article-body h2:first-child { margin-top: 0; }
+        .article-body h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95em;
+            font-weight: 600;
+            margin: 1.8em 0 0.5em;
+            color: var(--text);
+        }
+        .article-body p {
+            margin: 0 0 1.1em;
+            text-align: justify;
+            hyphens: auto;
+        }
+        .article-body ul, .article-body ol {
+            margin: 0 0 1.1em;
+            padding-left: 24px;
+        }
+        .article-body li { margin-bottom: 6px; }
+        .article-body li strong { font-family: 'Inter', sans-serif; font-size: 14px; }
+        .article-body strong { font-weight: 600; }
+        .article-body em { font-style: italic; }
+        .article-body a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+        .article-body a:hover { color: #a04030; }
+        .article-body code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            background: #f5f3f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        .article-body pre {
+            background: #2c2c2c;
+            color: #e0ddd8;
+            padding: 16px 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 0 0 16px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .article-body pre code { background: none; padding: 0; color: inherit; }
+        .article-body blockquote {
+            border-left: 3px solid var(--accent);
+            padding: 8px 20px;
+            margin: 0 0 16px;
+            color: #666;
+            font-style: italic;
+            background: var(--accent-light);
+            border-radius: 0 6px 6px 0;
+        }
+        .article-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 0 16px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+        }
+        .article-body th, .article-body td {
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        .article-body th { background: #f5f3f0; font-weight: 600; }
+        .article-body hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 32px 0;
+        }
+        .article-body img { max-width: 100%; border-radius: 8px; margin: 8px 0; }
+
+        /* Keyboard hint */
+        .kbd-hint {
+            position: fixed;
+            bottom: 16px;
+            right: 20px;
+            font-size: 10px;
+            color: #c5c0ba;
+            display: flex;
+            gap: 12px;
+        }
+        .kbd-hint kbd {
+            display: inline-block;
+            padding: 1px 6px;
+            background: #eae7e3;
+            border-radius: 3px;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar { width: 260px; }
+            .reading-content { padding: 24px 20px 60px; }
+            .article-title { font-size: 22px; }
+        }
+        @media (max-width: 640px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; max-height: 40vh; }
+            .reading-pane { height: 60vh; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Paper Notes</h1>
-        <p>Daily paper reading summaries & analysis</p>
-        <div class="tabs">
-            <div class="tab active" data-view="timeline">Timeline</div>
-            <div class="tab" data-view="topics">Topics</div>
-        </div>
+
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h1><span class="logo-icon"><i data-lucide="sparkles"></i></span>Paper Notes</h1>
+        <p>AI-powered reading summaries</p>
     </div>
+    <div class="collection-bar" id="collectionBar"></div>
+    <div class="sidebar-tabs" id="sidebarTabs">
+        <div class="sidebar-tab active" data-view="timeline"><i data-lucide="clock"></i> Timeline</div>
+        <div class="sidebar-tab" data-view="topics"><i data-lucide="layers"></i> Topics</div>
+        <div class="sidebar-tab" data-view="favorites"><i data-lucide="star"></i> Favs</div>
+        <div class="sidebar-tab" data-view="notes"><i data-lucide="pen-line"></i> Notes</div>
+    </div>
+    <div class="sidebar-search">
+        <i data-lucide="search"></i>
+        <input type="text" id="searchInput" placeholder="Search... (/)">
+    </div>
+    <div class="sidebar-list" id="sidebarList"></div>
+    <div class="sidebar-stats" id="sidebarStats"></div>
+</div>
+<div class="progress-bar" id="progressBar" style="display:none;"><div class="progress-fill" id="progressFill"></div></div>
 
-    <div class="container">
-        <div class="view active" id="timelineView">
-            <ul class="paper-list" id="timelineList"></ul>
+<div class="reading-pane" id="readingPane">
+    <div class="reading-empty">
+        <div class="empty-icon"><i data-lucide="book-open"></i></div>
+        <div class="empty-text">Select a paper to start reading</div>
+        <div class="empty-hint"><kbd>&uarr;</kbd><kbd>&darr;</kbd> navigate &nbsp; <kbd>/</kbd> search &nbsp; <kbd>J</kbd><kbd>K</kbd> prev/next</div>
+    </div>
+</div>
+
+<div class="kbd-hint">
+    <span><kbd>J</kbd><kbd>K</kbd> prev/next</span>
+    <span><kbd>F</kbd> focus</span>
+    <span><kbd>D</kbd> dark</span>
+    <span><kbd>+</kbd><kbd>-</kbd> font</span>
+    <span><kbd>/</kbd> search</span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
+<script>
+let collections = [];
+let activeCollection = 'papers';
+let items = [];
+let activeTab = 'timeline';
+let currentIndex = -1;
+let searchQuery = '';
+
+const catIcons = {
+    'World Models': 'globe',
+    'Embodied AI': 'bot',
+    'HCI/Creativity': 'palette',
+    'AI Safety': 'shield-alert',
+    'Multimodal/VLM': 'eye',
+    'AI for Science': 'flask-conical',
+    'LLM/Foundation': 'brain',
+    'Survey': 'book-marked',
+};
+function catIcon(cat) {
+    return catIcons[cat] || 'file-text';
+}
+
+// Collection switcher
+async function loadCollections() {
+    try {
+        const resp = await fetch('/api/collections');
+        if (resp.ok) collections = await resp.json();
+    } catch(e) {
+        // Fallback: just papers
+        collections = [{ key: 'papers', label: 'Paper Notes', icon: 'sparkles', color: '#c45d3e', count: 0, type: 'papers' }];
+    }
+    renderCollectionBar();
+    await switchCollection(activeCollection);
+}
+
+function renderCollectionBar() {
+    const bar = document.getElementById('collectionBar');
+    bar.innerHTML = collections.map(c =>
+        `<div class="collection-chip ${c.key === activeCollection ? 'active' : ''}"
+              style="--col-color:${c.color};--col-bg:${c.color}15;"
+              onclick="switchCollection('${c.key}')">
+            <i data-lucide="${c.icon}"></i>
+            ${c.label}
+            <span class="chip-count">${c.count}</span>
+        </div>`
+    ).join('');
+    lucide.createIcons();
+}
+
+async function switchCollection(key) {
+    activeCollection = key;
+    currentIndex = -1;
+    const cfg = collections.find(c => c.key === key);
+
+    // Show/hide Topics tab (only for papers collection), always show Favs/Notes
+    const topicsTab = document.querySelector('.sidebar-tab[data-view="topics"]');
+    if (topicsTab) topicsTab.style.display = (cfg && cfg.type === 'papers') ? '' : 'none';
+    if (activeTab === 'topics' && !(cfg && cfg.type === 'papers')) activeTab = 'timeline';
+    document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.toggle('active', t.dataset.view === activeTab));
+
+    try {
+        const resp = await fetch(`/api/items/${key}`);
+        if (resp.ok) items = await resp.json();
+        else items = [];
+    } catch(e) {
+        // Fallback for static hosting (papers only)
+        try {
+            const resp = await fetch('posts/index.json');
+            if (resp.ok) items = await resp.json();
+        } catch(e2) { items = []; }
+    }
+    renderCollectionBar();
+    renderSidebar();
+    // Reset reading pane
+    const stats = getReadingStats();
+    document.getElementById('readingPane').innerHTML = `
+        <div class="reading-empty">
+            <div class="empty-icon"><i data-lucide="book-open"></i></div>
+            <div class="empty-text">Select an item to read</div>
+            <div class="empty-hint"><kbd>J</kbd><kbd>K</kbd> navigate &nbsp; <kbd>/</kbd> search &nbsp; <kbd>F</kbd> focus &nbsp; <kbd>D</kbd> dark</div>
+            <div class="stats-bar" style="margin-top:12px;">
+                <div class="stat"><i data-lucide="flame"></i> <span class="stat-num">${stats.thisWeek}</span> this week</div>
+                <div class="stat"><i data-lucide="check-circle"></i> <span class="stat-num">${stats.total}</span> total read</div>
+            </div>
+        </div>`;
+    document.querySelector('.toc-float')?.remove();
+    lucide.createIcons();
+}
+
+// Tab switching
+document.querySelectorAll('.sidebar-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        activeTab = tab.dataset.view;
+        document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderSidebar();
+    });
+});
+
+// Search
+document.getElementById('searchInput').addEventListener('input', e => {
+    searchQuery = e.target.value.toLowerCase();
+    renderSidebar();
+});
+
+function getSortedItems() {
+    let filtered = items.map((p, i) => ({...p, _idx: i}));
+    if (searchQuery) {
+        filtered = filtered.filter(p =>
+            (p.title || '').toLowerCase().includes(searchQuery) ||
+            (p.category || '').toLowerCase().includes(searchQuery) ||
+            (p.date || '').includes(searchQuery)
+        );
+    }
+    return filtered.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+}
+
+function renderSidebar() {
+    const list = document.getElementById('sidebarList');
+    const sorted = getSortedItems();
+    const cfg = collections.find(c => c.key === activeCollection);
+    const isPapers = cfg && cfg.type === 'papers';
+
+    // Favorites view: show only starred items across current collection
+    if (activeTab === 'favorites') {
+        const favItems = sorted.filter(p => isFav(p));
+        if (favItems.length === 0) {
+            list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-secondary);font-size:12px;"><i data-lucide="star" style="width:20px;height:20px;display:block;margin:0 auto 8px;opacity:0.3;"></i>No favorites yet<br><span style="font-size:10px;opacity:0.6;">Click the star icon to bookmark</span></div>';
+            lucide.createIcons();
+            return;
+        }
+        list.innerHTML = favItems.map(p => sidebarItem(p, isPapers)).join('');
+        lucide.createIcons();
+        return;
+    }
+
+    // Notes view: show only items with notes
+    if (activeTab === 'notes') {
+        const notedItems = sorted.filter(p => hasNote(p));
+        if (notedItems.length === 0) {
+            list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-secondary);font-size:12px;"><i data-lucide="pen-line" style="width:20px;height:20px;display:block;margin:0 auto 8px;opacity:0.3;"></i>No notes yet<br><span style="font-size:10px;opacity:0.6;">Write notes while reading</span></div>';
+            lucide.createIcons();
+            return;
+        }
+        list.innerHTML = notedItems.map(p => {
+            const note = getNote(p);
+            const preview = note.length > 60 ? note.slice(0, 60) + '...' : note;
+            return `<div class="sidebar-item ${p._idx === currentIndex ? 'active' : ''}" onclick="showPost(${p._idx})">
+                <div class="read-dot" style="background:transparent;"></div>
+                <div class="sidebar-item-content">
+                    <div class="sidebar-item-title">${p.title}</div>
+                    <div class="sidebar-item-meta" style="color:#a08060;font-style:italic;">${preview}</div>
+                </div>
+                <i data-lucide="pen-line" class="has-note-icon"></i>
+            </div>`;
+        }).join('');
+        lucide.createIcons();
+        return;
+    }
+
+    if (sorted.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--text-secondary);font-size:12px;">No items found.</div>';
+        return;
+    }
+
+    if (activeTab === 'timeline' || !isPapers) {
+        let currentDate = '';
+        list.innerHTML = sorted.map(p => {
+            let dateHeader = '';
+            const displayDate = (p.date || '').slice(0, 10);
+            if (displayDate !== currentDate) {
+                currentDate = displayDate;
+                dateHeader = `<div class="sidebar-group-header"><i data-lucide="calendar" style="width:12px;height:12px;"></i> ${displayDate}</div>`;
+            }
+            return dateHeader + sidebarItem(p, isPapers);
+        }).join('');
+    } else if (activeTab === 'topics') {
+        const groups = {};
+        sorted.forEach(p => {
+            const cat = p.category || 'Other';
+            if (!groups[cat]) groups[cat] = [];
+            groups[cat].push(p);
+        });
+        const catColors = {
+            'World Models': '#34a853', 'Embodied AI': '#f9ab00', 'HCI/Creativity': '#a855f7',
+            'AI Safety': '#ea4335', 'Multimodal/VLM': '#4285f4', 'AI for Science': '#ff6d01',
+            'LLM/Foundation': '#5f6368', 'Survey': '#9aa0a6'
+        };
+        const sortedCats = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
+        list.innerHTML = `<div class="topics-grid">${sortedCats.map(cat => {
+            const col = catColors[cat] || '#8a8580';
+            const papers = groups[cat];
+            return `<div class="topic-card" onclick="toggleTopicCard(this)">
+                <div class="topic-card-icon" style="background:${col}"><i data-lucide="${catIcon(cat)}"></i></div>
+                <div class="topic-card-name">${cat}</div>
+                <div class="topic-card-count">${papers.length} paper${papers.length > 1 ? 's' : ''}</div>
+                <div class="topic-card-papers">
+                    ${papers.map(p => `<div class="sidebar-item" onclick="event.stopPropagation();showPost(${p._idx})">
+                        <div class="sidebar-item-content">
+                            <div class="sidebar-item-title" style="font-size:11px;">${p.title}</div>
+                        </div>
+                    </div>`).join('')}
+                </div>
+            </div>`;
+        }).join('')}</div>`;
+    }
+    lucide.createIcons();
+}
+
+function sidebarItem(item, showCategory) {
+    const key = `${activeCollection}/${item.file || item.title}`;
+    const isRead = readState[key];
+    const starred = isFav(item);
+    const noted = hasNote(item);
+    return `<div class="sidebar-item ${item._idx === currentIndex ? 'active' : ''} ${isRead ? 'is-read' : ''}"
+                onclick="showPost(${item._idx})">
+        <div class="read-dot"></div>
+        <div class="sidebar-item-content">
+            <div class="sidebar-item-title">${item.title}</div>
+            <div class="sidebar-item-meta">
+                ${showCategory && item.category ? `<span class="cat-dot" data-cat="${item.category}"></span><span>${item.category}</span>` : ''}
+                ${!showCategory && item.size ? '<span>' + (item.size > 1024 ? Math.round(item.size/1024) + 'KB' : item.size + 'B') + '</span>' : ''}
+                ${activeTab === 'topics' && item.date ? '<span>' + item.date + '</span>' : ''}
+            </div>
         </div>
+        ${noted ? '<i data-lucide="pen-line" class="has-note-icon"></i>' : ''}
+        <i data-lucide="star" class="fav-btn ${starred ? 'is-fav' : ''}" onclick="toggleFav(${item._idx}, event)"></i>
+    </div>`;
+}
 
-        <div class="view" id="topicsView">
-            <div id="topicsList"></div>
-        </div>
+// === Read Tracking ===
+let readState = JSON.parse(localStorage.getItem('reader-read-state') || '{}');
 
-        <div class="view" id="postView">
-            <div class="post-nav">
-                <a class="back-btn" id="backBtn">&larr; Back</a>
-                <div class="post-nav-arrows">
-                    <a class="nav-arrow" id="prevBtn" title="Previous paper">&larr;</a>
-                    <span id="postCounter" style="font-size:0.78rem;color:#656d76;min-width:3.5rem;text-align:center;"></span>
-                    <a class="nav-arrow" id="nextBtn" title="Next paper">&rarr;</a>
+function markAsRead(item) {
+    const key = `${activeCollection}/${item.file || item.title}`;
+    if (!readState[key]) {
+        readState[key] = Date.now();
+        localStorage.setItem('reader-read-state', JSON.stringify(readState));
+    }
+}
+
+function markAsUnread(item) {
+    const key = `${activeCollection}/${item.file || item.title}`;
+    delete readState[key];
+    localStorage.setItem('reader-read-state', JSON.stringify(readState));
+}
+
+function getReadCount() {
+    return items.filter(item => {
+        const key = `${activeCollection}/${item.file || item.title}`;
+        return readState[key];
+    }).length;
+}
+
+function renderStats() {
+    const total = items.length;
+    const read = getReadCount();
+    const el = document.getElementById('sidebarStats');
+    el.innerHTML = `<span>${read}/${total} read</span><a onclick="clearReadState()">Reset</a>`;
+}
+
+function clearReadState() {
+    // Only clear current collection
+    const prefix = activeCollection + '/';
+    Object.keys(readState).forEach(k => { if (k.startsWith(prefix)) delete readState[k]; });
+    localStorage.setItem('reader-read-state', JSON.stringify(readState));
+    renderSidebar();
+    renderStats();
+}
+
+// === Reading Progress ===
+function initProgressBar() {
+    const pane = document.getElementById('readingPane');
+    const bar = document.getElementById('progressBar');
+    const fill = document.getElementById('progressFill');
+    bar.style.display = currentIndex >= 0 ? '' : 'none';
+
+    pane.addEventListener('scroll', () => {
+        if (currentIndex < 0) return;
+        const scrollTop = pane.scrollTop;
+        const scrollHeight = pane.scrollHeight - pane.clientHeight;
+        const pct = scrollHeight > 0 ? Math.min(100, (scrollTop / scrollHeight) * 100) : 0;
+        fill.style.width = pct + '%';
+    });
+}
+
+// === Last Read Position ===
+function saveScrollPos() {
+    if (currentIndex >= 0) {
+        const pane = document.getElementById('readingPane');
+        const key = `scroll-${activeCollection}-${currentIndex}`;
+        localStorage.setItem(key, pane.scrollTop);
+    }
+}
+
+function restoreScrollPos() {
+    const key = `scroll-${activeCollection}-${currentIndex}`;
+    const pos = localStorage.getItem(key);
+    if (pos) {
+        const pane = document.getElementById('readingPane');
+        setTimeout(() => { pane.scrollTop = parseInt(pos); }, 50);
+    }
+}
+
+function slugify(text) {
+    return text.toLowerCase().replace(/<[^>]*>/g, '').replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
+}
+
+function extractSection(md, anchor) {
+    if (!anchor) return md;
+    const lines = md.split('\n');
+    let startLine = -1, startLevel = 0;
+    for (let i = 0; i < lines.length; i++) {
+        const hMatch = lines[i].match(/^(#{2,3})\s+(.+)$/);
+        if (hMatch && slugify(hMatch[2]) === anchor) {
+            startLine = i; startLevel = hMatch[1].length; break;
+        }
+    }
+    if (startLine === -1) return md;
+    let endLine = lines.length;
+    for (let i = startLine + 1; i < lines.length; i++) {
+        const hMatch = lines[i].match(/^(#{2,3})\s+/);
+        if (hMatch && hMatch[1].length <= startLevel) { endLine = i; break; }
+    }
+    let section = lines.slice(startLine, endLine).join('\n');
+    if (startLevel === 3) section = section.replace(/^###\s+/, '## ');
+    return section;
+}
+
+async function showPost(index) {
+    // Save scroll of previous article
+    saveScrollPos();
+
+    currentIndex = index;
+    const item = items[index];
+    const cfg = collections.find(c => c.key === activeCollection);
+
+    // Mark as read
+    markAsRead(item);
+
+    // Fetch content based on collection type
+    let htmlContent = '';
+    let fileUrl = '';
+    if (cfg.type === 'papers') {
+        fileUrl = item.file; // posts/2026-04-02.md (relative)
+        const resp = await fetch(fileUrl);
+        let md = await resp.text();
+        md = md.replace(/^---[\s\S]*?---\s*/, '');
+        const section = extractSection(md, item.anchor);
+        htmlContent = marked.parse(section);
+    } else if (cfg.type === 'markdown') {
+        fileUrl = `/api/file/${activeCollection}/${encodeURIComponent(item.file)}`;
+        const resp = await fetch(fileUrl);
+        let md = await resp.text();
+        md = md.replace(/^---[\s\S]*?---\s*/, '');
+        htmlContent = marked.parse(md);
+    } else if (cfg.type === 'html-files') {
+        fileUrl = `/api/file/${activeCollection}/${encodeURIComponent(item.file)}`;
+        const resp = await fetch(fileUrl);
+        let html = await resp.text();
+        // Wrap raw HTML in a container; strip <html><body> etc
+        html = html.replace(/<\/?html[^>]*>/gi, '').replace(/<\/?body[^>]*>/gi, '').replace(/<head>[\s\S]*?<\/head>/gi, '');
+        htmlContent = html;
+    }
+
+    const sorted = getSortedItems();
+    const posInSorted = sorted.findIndex(p => p._idx === index);
+    const hasPrev = posInSorted > 0;
+    const hasNext = posInSorted < sorted.length - 1;
+
+    const catLine = item.category
+        ? `<div class="article-cat-icon"><i data-lucide="${catIcon(item.category)}"></i> ${item.category}</div>`
+        : `<div class="article-cat-icon"><i data-lucide="${cfg.icon}"></i> ${cfg.label}</div>`;
+
+    const catBadgeLine = item.category
+        ? `<span class="cat-badge" data-cat="${item.category}">${item.category}</span>`
+        : '';
+
+    const linksLine = (item.links||[]).map(l =>
+        `<a href="${l.url}" target="_blank"><i data-lucide="external-link" style="width:11px;height:11px;vertical-align:-1px;margin-right:2px;"></i>${l.label}</a>`
+    ).join('');
+
+    // Estimate reading time (avg 200 words/min for English, 400 chars/min for Chinese)
+    const plainText = htmlContent.replace(/<[^>]+>/g, '');
+    const wordCount = plainText.split(/\s+/).length;
+    const readMins = Math.max(1, Math.round(wordCount / 200));
+
+    const pane = document.getElementById('readingPane');
+    pane.innerHTML = `
+        <div class="reading-content">
+            <div class="reading-toolbar">
+                <span class="reading-time"><i data-lucide="clock"></i> ${readMins} min read</span>
+                <button class="toolbar-btn" onclick="changeFontSize(-1)" title="Smaller text">A-</button>
+                <button class="toolbar-btn" onclick="changeFontSize(1)" title="Larger text">A+</button>
+                <div class="toolbar-sep"></div>
+                <button class="toolbar-btn" onclick="toggleFocusMode()" title="Focus mode (F)"><i data-lucide="maximize-2"></i></button>
+                <button class="toolbar-btn" onclick="toggleDarkMode()" title="Dark mode (D)"><i data-lucide="moon"></i></button>
+                <div class="toolbar-sep"></div>
+                <button class="toolbar-btn" onclick="toggleTranslate(this)" title="AI Translate"><i data-lucide="languages"></i></button>
+            </div>
+            <div class="article-nav">
+                <button class="article-nav-btn ${hasPrev ? '' : 'disabled'}" onclick="${hasPrev ? 'showPost(' + sorted[posInSorted-1]._idx + ')' : ''}"><i data-lucide="chevron-left" style="width:14px;height:14px;"></i> Prev</button>
+                <span class="article-counter">${posInSorted + 1} / ${sorted.length}</span>
+                <button class="article-nav-btn ${hasNext ? '' : 'disabled'}" onclick="${hasNext ? 'showPost(' + sorted[posInSorted+1]._idx + ')' : ''}">Next <i data-lucide="chevron-right" style="width:14px;height:14px;"></i></button>
+            </div>
+            <div class="article-header">
+                ${catLine}
+                <div class="article-title">${item.title}</div>
+                <div class="article-meta">
+                    <span><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:-2px;margin-right:2px;"></i>${item.date || ''}</span>
+                    ${catBadgeLine}
+                    ${linksLine}
+                    <button class="lang-toggle" onclick="toggleReadMark(${index})" title="Mark unread"><i data-lucide="eye-off"></i></button>
                 </div>
             </div>
-            <div class="post-header-meta" id="postMeta"></div>
-            <div class="markdown-body" id="postContent"></div>
-            <div class="post-nav" style="margin-top:1.5rem;">
-                <a class="nav-arrow" id="prevBtn2" title="Previous paper">&larr; Prev</a>
-                <a class="nav-arrow" id="nextBtn2" title="Next paper" style="width:auto;padding:0 0.8rem;">Next &rarr;</a>
+            <div class="article-body">${htmlContent}</div>
+            <div class="notes-panel" style="margin-top:32px;">
+                <div class="notes-panel-header">
+                    <span><i data-lucide="pen-line"></i> My Notes</span>
+                    <span class="notes-saved" id="noteSaved">saved</span>
+                </div>
+                <textarea id="noteTextarea" placeholder="Write your thoughts about this paper..." oninput="saveNote(${index})"></textarea>
             </div>
-        </div>
-    </div>
+            <div class="article-nav" style="margin-top:24px;padding-top:24px;border-top:1px solid var(--border);">
+                <button class="article-nav-btn ${hasPrev ? '' : 'disabled'}" onclick="${hasPrev ? 'showPost(' + sorted[posInSorted-1]._idx + ')' : ''}"><i data-lucide="chevron-left" style="width:14px;height:14px;"></i> Previous</button>
+                <button class="article-nav-btn ${hasNext ? '' : 'disabled'}" onclick="${hasNext ? 'showPost(' + sorted[posInSorted+1]._idx + ')' : ''}">Next <i data-lucide="chevron-right" style="width:14px;height:14px;"></i></button>
+            </div>
+        </div>`;
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
-    <script>
-        let papers = [];
-        let activeTab = 'timeline';
+    // Populate note textarea (safe from template string issues)
+    const noteEl = document.getElementById('noteTextarea');
+    if (noteEl) noteEl.value = getNote(item);
 
-        // Tab switching
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const view = tab.dataset.view;
-                activeTab = view;
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                showView(view);
-            });
+    pane.scrollTop = 0;
+    restoreScrollPos();
+    renderSidebar();
+    renderStats();
+    scrollSidebarToActive();
+    document.getElementById('progressBar').style.display = '';
+    document.getElementById('progressFill').style.width = '0%';
+    showingTranslation = false;
+    lucide.createIcons();
+    buildTOC();
+}
+
+function toggleReadMark(index) {
+    const item = items[index];
+    const key = `${activeCollection}/${item.file || item.title}`;
+    if (readState[key]) {
+        markAsUnread(item);
+    } else {
+        markAsRead(item);
+    }
+    renderSidebar();
+    renderStats();
+}
+
+// === Favorites ===
+let favState = JSON.parse(localStorage.getItem('reader-favorites') || '{}');
+
+function favKey(item) { return `${activeCollection}/${item.file || item.title}`; }
+
+function toggleFav(index, event) {
+    if (event) event.stopPropagation();
+    const item = items[index];
+    const k = favKey(item);
+    if (favState[k]) delete favState[k];
+    else favState[k] = { title: item.title, date: item.date, collection: activeCollection, ts: Date.now() };
+    localStorage.setItem('reader-favorites', JSON.stringify(favState));
+    renderSidebar();
+}
+
+function isFav(item) { return !!favState[favKey(item)]; }
+
+// === Notes ===
+let notesState = JSON.parse(localStorage.getItem('reader-notes') || '{}');
+
+function noteKey(item) { return `${activeCollection}/${item.file || item.title}`; }
+
+function getNote(item) { return notesState[noteKey(item)] || ''; }
+
+function saveNote(index) {
+    const item = items[index];
+    const textarea = document.getElementById('noteTextarea');
+    if (!textarea) return;
+    const text = textarea.value.trim();
+    const k = noteKey(item);
+    if (text) {
+        notesState[k] = text;
+    } else {
+        delete notesState[k];
+    }
+    localStorage.setItem('reader-notes', JSON.stringify(notesState));
+    // Show saved indicator
+    const saved = document.getElementById('noteSaved');
+    if (saved) { saved.classList.add('show'); setTimeout(() => saved.classList.remove('show'), 1500); }
+    renderSidebar();
+}
+
+function hasNote(item) { return !!notesState[noteKey(item)]; }
+
+// Get items with notes across all collections
+function getAllNotedItems() {
+    return Object.entries(notesState).map(([k, text]) => {
+        const [col, ...fileParts] = k.split('/');
+        const file = fileParts.join('/');
+        const fav = favState[k];
+        return { key: k, collection: col, file, text, title: fav ? fav.title : file };
+    });
+}
+
+// === Topic Card Toggle ===
+function toggleTopicCard(el) {
+    const wasExpanded = el.classList.contains('expanded');
+    el.parentElement.querySelectorAll('.topic-card').forEach(c => c.classList.remove('expanded'));
+    if (!wasExpanded) el.classList.add('expanded');
+}
+
+// === Floating TOC ===
+function buildTOC() {
+    // Remove existing TOC
+    document.querySelector('.toc-float')?.remove();
+
+    const body = document.querySelector('.article-body');
+    if (!body) return;
+
+    const headings = body.querySelectorAll('h2, h3');
+    if (headings.length < 3) return; // Too few headings, no TOC needed
+
+    const toc = document.createElement('div');
+    toc.className = 'toc-float';
+
+    headings.forEach((h, i) => {
+        const id = 'toc-' + i;
+        h.id = id;
+        const item = document.createElement('a');
+        item.className = 'toc-item' + (h.tagName === 'H3' ? ' depth-3' : '');
+        item.textContent = h.textContent;
+        item.onclick = () => h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        toc.appendChild(item);
+    });
+
+    document.body.appendChild(toc);
+
+    // Highlight active TOC item on scroll
+    const pane = document.getElementById('readingPane');
+    const updateTOC = () => {
+        const items = toc.querySelectorAll('.toc-item');
+        let activeIdx = 0;
+        headings.forEach((h, i) => {
+            const rect = h.getBoundingClientRect();
+            if (rect.top < 200) activeIdx = i;
         });
+        items.forEach((item, i) => item.classList.toggle('active', i === activeIdx));
+    };
+    pane.addEventListener('scroll', updateTOC);
+    updateTOC();
+}
 
-        function showView(view) {
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            document.getElementById(view + 'View').classList.add('active');
-        }
+// === Reading Stats ===
+function getReadingStats() {
+    const now = Date.now();
+    const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+    let thisWeek = 0;
+    let total = 0;
+    Object.values(readState).forEach(ts => {
+        total++;
+        if (ts > weekAgo) thisWeek++;
+    });
+    return { thisWeek, total };
+}
 
-        function catBadge(cat) {
-            return `<span class="cat-badge" data-cat="${cat}">${cat}</span>`;
-        }
+// === Font Size Control ===
+let fontSize = parseInt(localStorage.getItem('reader-font-size') || '16');
+document.documentElement.style.setProperty('--font-size', fontSize + 'px');
 
-        function paperLinks(links) {
-            if (!links || links.length === 0) return '';
-            return links.map(l =>
-                `<a href="${l.url}" target="_blank" onclick="event.stopPropagation();" style="color:#0969da;text-decoration:none;font-size:0.78rem;border:1px solid #d0d7de;border-radius:2em;padding:0.1rem 0.5rem;">${l.label}</a>`
-            ).join(' ');
-        }
+function changeFontSize(delta) {
+    fontSize = Math.max(12, Math.min(24, fontSize + delta * 2));
+    document.documentElement.style.setProperty('--font-size', fontSize + 'px');
+    localStorage.setItem('reader-font-size', fontSize);
+}
 
-        function paperCard(paper, idx) {
-            return `
-                <li class="paper-item">
-                    <a href="#" onclick="showPost(${idx}); return false;">
-                        <div class="paper-title">${paper.title}</div>
-                        <div class="paper-meta">
-                            <span>${paper.date}</span>
-                            ${catBadge(paper.category)}
-                            ${paperLinks(paper.links)}
-                        </div>
-                    </a>
-                </li>`;
-        }
+// === Focus Mode ===
+function toggleFocusMode() {
+    document.body.classList.toggle('focus-mode');
+}
 
-        // Timeline: all papers sorted by date desc
-        function renderTimeline() {
-            const list = document.getElementById('timelineList');
-            if (papers.length === 0) {
-                list.innerHTML = '<li style="text-align:center;padding:2rem;color:#656d76;">No papers yet.</li>';
+// === Dark Mode ===
+let darkMode = localStorage.getItem('reader-dark-mode') === 'true';
+if (darkMode) document.documentElement.setAttribute('data-theme', 'dark');
+
+function toggleDarkMode() {
+    darkMode = !darkMode;
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : '');
+    localStorage.setItem('reader-dark-mode', darkMode);
+}
+
+// === Scroll active sidebar item into view ===
+function scrollSidebarToActive() {
+    setTimeout(() => {
+        const active = document.querySelector('.sidebar-item.active');
+        if (active) active.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }, 50);
+}
+
+// === Bilingual Translation ===
+let translateCache = JSON.parse(localStorage.getItem('reader-translate-cache') || '{}');
+let showingTranslation = false;
+
+function toggleTranslate(btn) {
+    showingTranslation = !showingTranslation;
+    btn.classList.toggle('active', showingTranslation);
+
+    if (showingTranslation) {
+        // Add Chinese blocks after each paragraph
+        const body = document.querySelector('.article-body');
+        const paragraphs = body.querySelectorAll('p, li');
+        paragraphs.forEach((p, i) => {
+            const text = p.textContent.trim();
+            if (text.length < 20) return; // skip short lines
+            // Check if already has a cn-block
+            if (p.nextElementSibling && p.nextElementSibling.classList.contains('cn-block')) {
+                p.nextElementSibling.classList.add('show');
                 return;
             }
-            const sorted = papers.map((p, i) => ({...p, _idx: i}))
-                .sort((a, b) => b.date.localeCompare(a.date));
-            list.innerHTML = sorted.map(p => paperCard(p, p._idx)).join('');
-        }
-
-        // Topics: grouped by category
-        function renderTopics() {
-            const container = document.getElementById('topicsList');
-            const groups = {};
-            papers.forEach((p, i) => {
-                if (!groups[p.category]) groups[p.category] = [];
-                groups[p.category].push({...p, _idx: i});
-            });
-
-            // Sort categories by paper count desc
-            const sortedCats = Object.keys(groups).sort((a, b) => groups[b].length - groups[a].length);
-
-            container.innerHTML = sortedCats.map(cat => {
-                const items = groups[cat].sort((a, b) => b.date.localeCompare(a.date));
-                return `
-                    <div class="category-section">
-                        <div class="category-header">
-                            ${catBadge(cat)}
-                            <span class="category-count">${items.length} paper${items.length > 1 ? 's' : ''}</span>
-                        </div>
-                        <ul class="paper-list">
-                            ${items.map(p => paperCard(p, p._idx)).join('')}
-                        </ul>
-                    </div>`;
-            }).join('');
-        }
-
-        // Heading text to anchor slug (matches marked.js default)
-        function slugify(text) {
-            return text.toLowerCase()
-                .replace(/<[^>]*>/g, '')
-                .replace(/[^\w\s-]/g, '')
-                .trim()
-                .replace(/\s+/g, '-');
-        }
-
-        let currentPostIndex = -1;
-
-        // Get sorted paper indices (by date desc, matching timeline order)
-        function getSortedIndices() {
-            return papers.map((p, i) => ({...p, _idx: i}))
-                .sort((a, b) => b.date.localeCompare(a.date))
-                .map(p => p._idx);
-        }
-
-        // Extract just one paper's section from the full markdown
-        function extractSection(md, anchor) {
-            if (!anchor) return md;
-
-            const lines = md.split('\n');
-            let startLine = -1;
-            let startLevel = 0;
-
-            // Find the heading that matches the anchor
-            for (let i = 0; i < lines.length; i++) {
-                const hMatch = lines[i].match(/^(#{2,3})\s+(.+)$/);
-                if (hMatch) {
-                    const lineSlug = slugify(hMatch[2]);
-                    if (lineSlug === anchor) {
-                        startLine = i;
-                        startLevel = hMatch[1].length; // 2 for ##, 3 for ###
-                        break;
-                    }
-                }
+            const cacheKey = text.slice(0, 100);
+            const cnDiv = document.createElement('div');
+            cnDiv.className = 'cn-block show';
+            if (translateCache[cacheKey]) {
+                cnDiv.textContent = translateCache[cacheKey];
+            } else {
+                cnDiv.innerHTML = '<span class="cn-loading">Translating with AI...</span>';
+                translateParagraph(text, cnDiv, cacheKey);
             }
-            if (startLine === -1) return md; // anchor not found, show all
+            p.after(cnDiv);
+        });
+    } else {
+        document.querySelectorAll('.cn-block').forEach(el => el.classList.remove('show'));
+    }
+}
 
-            // Find the end: next heading of same or higher level
-            let endLine = lines.length;
-            for (let i = startLine + 1; i < lines.length; i++) {
-                const hMatch = lines[i].match(/^(#{2,3})\s+/);
-                if (hMatch && hMatch[1].length <= startLevel) {
-                    endLine = i;
-                    break;
-                }
-            }
-
-            // Promote ### to ## for display if needed
-            let section = lines.slice(startLine, endLine).join('\n');
-            if (startLevel === 3) {
-                section = section.replace(/^###\s+/, '## ');
-            }
-            return section;
+async function translateParagraph(text, el, cacheKey) {
+    try {
+        const resp = await fetch('/api/translate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ text: text.slice(0, 2000) })
+        });
+        if (resp.ok) {
+            const data = await resp.json();
+            el.textContent = data.translation;
+            translateCache[cacheKey] = data.translation;
+            localStorage.setItem('reader-translate-cache', JSON.stringify(translateCache));
+        } else {
+            el.textContent = '[Translation unavailable - need API key]';
         }
+    } catch(e) {
+        el.textContent = '[Translation service not available]';
+    }
+}
 
-        async function showPost(index) {
-            currentPostIndex = index;
-            const paper = papers[index];
-            const resp = await fetch(paper.file);
-            let md = await resp.text();
-            md = md.replace(/^---[\s\S]*?---\s*/, '');
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT') return;
 
-            // Extract only this paper's section
-            const section = extractSection(md, paper.anchor);
-            document.getElementById('postContent').innerHTML = marked.parse(section);
+    if (e.key === 'ArrowDown' || e.key === 'j') {
+        e.preventDefault();
+        const sorted = getSortedItems();
+        const posInSorted = sorted.findIndex(p => p._idx === currentIndex);
+        if (posInSorted < sorted.length - 1) showPost(sorted[posInSorted + 1]._idx);
+        else if (currentIndex === -1 && sorted.length > 0) showPost(sorted[0]._idx);
+        return;
+    }
+    if (e.key === 'ArrowUp' || e.key === 'k') {
+        e.preventDefault();
+        const sorted = getSortedItems();
+        const posInSorted = sorted.findIndex(p => p._idx === currentIndex);
+        if (posInSorted > 0) showPost(sorted[posInSorted - 1]._idx);
+        return;
+    }
+    if (e.key === 'f') { toggleFocusMode(); return; }
+    if (e.key === 'd') { toggleDarkMode(); return; }
+    if (e.key === '=' || e.key === '+') { changeFontSize(1); return; }
+    if (e.key === '-') { changeFontSize(-1); return; }
+    if (e.key === '/') {
+        e.preventDefault();
+        document.getElementById('searchInput').focus();
+    }
+    if (e.key === 'Escape') {
+        if (document.body.classList.contains('focus-mode')) { toggleFocusMode(); return; }
+        document.getElementById('searchInput').blur();
+        document.getElementById('searchInput').value = '';
+        searchQuery = '';
+        renderSidebar();
+    }
+});
 
-            // Meta: date + category badge + paper links
-            document.getElementById('postMeta').innerHTML = `
-                <span class="date-badge">Added ${paper.date}</span>
-                ${catBadge(paper.category)}
-                ${paperLinks(paper.links)}
-            `;
+loadCollections().then(() => {
+    lucide.createIcons();
+    renderStats();
+    initProgressBar();
+});
+lucide.createIcons();
 
-            // Navigation
-            const sorted = getSortedIndices();
-            const posInSorted = sorted.indexOf(index);
-            const hasPrev = posInSorted > 0;
-            const hasNext = posInSorted < sorted.length - 1;
-
-            // Counter
-            document.getElementById('postCounter').textContent = `${posInSorted + 1} / ${sorted.length}`;
-
-            // Wire up prev/next (top)
-            function setupNav(prevId, nextId) {
-                const prevBtn = document.getElementById(prevId);
-                const nextBtn = document.getElementById(nextId);
-                prevBtn.className = `nav-arrow${hasPrev ? '' : ' disabled'}`;
-                nextBtn.className = `nav-arrow${hasNext ? '' : ' disabled'}`;
-                prevBtn.onclick = hasPrev ? () => showPost(sorted[posInSorted - 1]) : null;
-                nextBtn.onclick = hasNext ? () => showPost(sorted[posInSorted + 1]) : null;
-            }
-            setupNav('prevBtn', 'nextBtn');
-            setupNav('prevBtn2', 'nextBtn2');
-
-            // Back button
-            document.getElementById('backBtn').onclick = () => {
-                showView(activeTab);
-                document.querySelectorAll('.tab').forEach(t => {
-                    t.classList.toggle('active', t.dataset.view === activeTab);
-                });
-            };
-
-            showView('post');
-            window.scrollTo(0, 0);
-        }
-
-        async function loadPosts() {
-            try {
-                const resp = await fetch('posts/index.json');
-                if (resp.ok) {
-                    papers = await resp.json();
-                    renderTimeline();
-                    renderTopics();
-                    return;
-                }
-            } catch (e) {}
-            document.getElementById('timelineList').innerHTML =
-                '<li style="text-align:center;padding:2rem;color:#656d76;">No papers found.</li>';
-        }
-
-        loadPosts();
-    </script>
+// Save scroll on page unload
+window.addEventListener('beforeunload', saveScrollPos);
+</script>
 </body>
 </html>

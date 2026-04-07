@@ -26,6 +26,71 @@
     ]
   },
   {
+    "date": "2026-04-07",
+    "title": "When Narrower is Better: The Narrow Width Limit of Bayesian Parallel Branching Neural Networks",
+    "category": "AI Safety",
+    "file": "posts/2026-04-07.md",
+    "anchor": "3-when-narrower-is-better-the-narrow-width-limit-of-bayesian-parallel-branching-neural-networks",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2407.18807"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-07",
+    "title": "*New News*: System-2 Fine-tuning for Robust Integration of New Knowledge",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-07.md",
+    "anchor": "4-new-news-system-2-fine-tuning-for-robust-integration-of-new-knowledge",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2505.01812"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-07",
+    "title": "Linear Latent World Models in Simple Transformers: A Case Study on Othello-GPT",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-04-07.md",
+    "anchor": "5-linear-latent-world-models-in-simple-transformers-a-case-study-on-othello-gpt",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2310.07582"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-07",
+    "title": "Memorization and Knowledge Injection in Gated LLMs (MEGa)",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-07.md",
+    "anchor": "6-memorization-and-knowledge-injection-in-gated-llms-mega",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2504.21239"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-07",
+    "title": "Humanity's Last Exam (HLE)",
+    "category": "AI Safety",
+    "file": "posts/2026-04-07.md",
+    "anchor": "7-humanitys-last-exam-hle",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2501.14249"
+      }
+    ]
+  },
+  {
     "date": "2026-04-02",
     "title": "Evolving AI Collectives Enhance Human Diversity and Enable Self-Regulation",
     "category": "AI Safety",
