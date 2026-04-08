@@ -60,6 +60,13 @@ COLLECTIONS = {
         "color": "#10b981",
         "label": "Buffett Letters EN",
     },
+    "career-notes": {
+        "path": ROOT / "career-notes",
+        "type": "markdown",
+        "icon": "briefcase",
+        "color": "#f59e0b",
+        "label": "Career & Research",
+    },
 }
 
 
@@ -115,6 +122,12 @@ def scan_html_dir(dirpath):
             "size": f.stat().st_size,
         })
     return items
+
+
+def rebuild_papers_index():
+    """Rebuild posts/index.json after file changes."""
+    import subprocess
+    subprocess.run(["python3", str(ROOT / "build_index.py")], cwd=str(ROOT))
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -207,6 +220,31 @@ class Handler(SimpleHTTPRequestHandler):
         length = int(self.headers.get("Content-Length", 0))
         body_raw = self.rfile.read(length) if length else b""
 
+        if p.startswith("/api/rename/"):
+            rest = unquote(p[12:])
+            parts = rest.split("/", 1)
+            if len(parts) < 2:
+                return self._json({"error": "need collection/filename"}, 400)
+            key, fname = parts
+            cfg = COLLECTIONS.get(key)
+            if not cfg:
+                return self._json({"error": "collection not found"}, 404)
+            fpath = cfg["path"] / fname
+            if not fpath.exists():
+                return self._json({"error": "file not found"}, 404)
+            body = json.loads(body_raw)
+            new_title = body.get("title", "")
+            if not new_title:
+                return self._json({"error": "empty title"}, 400)
+            content = fpath.read_text(errors="ignore")
+            # Replace first # heading, or prepend one
+            if re.search(r'^#\s+.+', content, re.MULTILINE):
+                content = re.sub(r'^(#\s+).+', rf'\1{new_title}', content, count=1, flags=re.MULTILINE)
+            else:
+                content = f"# {new_title}\n\n{content}"
+            fpath.write_text(content)
+            return self._json({"ok": True})
+
         if p == "/api/translate":
             body = json.loads(body_raw)
             text = body.get("text", "")
@@ -223,6 +261,56 @@ class Handler(SimpleHTTPRequestHandler):
             except Exception as e:
                 return self._json({"error": str(e)}, 500)
 
+        return self._json({"error": "not found"}, 404)
+
+    def do_OPTIONS(self):
+        self.send_response(200)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
+
+    def do_PUT(self):
+        p = urlparse(self.path).path
+        if p.startswith("/api/file/"):
+            rest = unquote(p[10:])
+            parts = rest.split("/", 1)
+            if len(parts) < 2:
+                return self._json({"error": "need collection/filename"}, 400)
+            key, fname = parts
+            cfg = COLLECTIONS.get(key)
+            if not cfg:
+                return self._json({"error": "collection not found"}, 404)
+            if not fname.endswith(".md"):
+                return self._json({"error": "only .md files allowed"}, 400)
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length) if length else b""
+            fpath = cfg["path"] / fname
+            cfg["path"].mkdir(parents=True, exist_ok=True)
+            fpath.write_bytes(body)
+            if cfg["type"] == "papers":
+                rebuild_papers_index()
+            return self._json({"ok": True})
+        return self._json({"error": "not found"}, 404)
+
+    def do_DELETE(self):
+        p = urlparse(self.path).path
+        if p.startswith("/api/file/"):
+            rest = unquote(p[10:])
+            parts = rest.split("/", 1)
+            if len(parts) < 2:
+                return self._json({"error": "need collection/filename"}, 400)
+            key, fname = parts
+            cfg = COLLECTIONS.get(key)
+            if not cfg:
+                return self._json({"error": "collection not found"}, 404)
+            fpath = cfg["path"] / fname
+            if not fpath.exists() or not fpath.is_file():
+                return self._json({"error": "file not found"}, 404)
+            fpath.unlink()
+            if cfg["type"] == "papers":
+                rebuild_papers_index()
+            return self._json({"ok": True})
         return self._json({"error": "not found"}, 404)
 
     def _json(self, data, code=200):

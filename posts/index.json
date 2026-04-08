@@ -1,5 +1,53 @@
 [
   {
+    "date": "2026-04-08",
+    "title": "Curie: Toward Rigorous and Automated Scientific Experimentation with AI Agents",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-08.md",
+    "anchor": "1-curie-toward-rigorous-and-automated-scientific-experimentation-with-ai-agents"
+  },
+  {
+    "date": "2026-04-08",
+    "title": "EXP-Bench: Can AI Conduct AI Research Experiments?",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-08.md",
+    "anchor": "2-exp-bench-can-ai-conduct-ai-research-experiments"
+  },
+  {
+    "date": "2026-04-08",
+    "title": "Sci-Reasoning: A Dataset Decoding AI Innovation Patterns",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-08.md",
+    "anchor": "3-sci-reasoning-a-dataset-decoding-ai-innovation-patterns"
+  },
+  {
+    "date": "2026-04-08",
+    "title": "Towards General Agentic Intelligence via Environment Scaling (AgentScaler)",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-08.md",
+    "anchor": "4-towards-general-agentic-intelligence-via-environment-scaling-agentscaler"
+  },
+  {
+    "date": "2026-04-08",
+    "title": "SentiAvatar: Towards Expressive and Interactive Digital Humans",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-08.md",
+    "anchor": "5-sentiavatar-towards-expressive-and-interactive-digital-humans"
+  },
+  {
+    "date": "2026-04-08",
+    "title": "arXiv:2604.02908 — 同 Paper 5 (SentiAvatar)",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-08.md",
+    "anchor": "6-arxiv260402908-同-paper-5-sentiavatar"
+  },
+  {
+    "date": "2026-04-08-note",
+    "title": "2026-04-08-note",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-08-note.md"
+  },
+  {
     "date": "2026-04-07",
     "title": "Out of Sight but Not Out of Mind: Hybrid Memory for Dynamic Video World Models",
     "category": "World Models",

@@ -39,6 +39,32 @@
         [data-theme="dark"] .article-body blockquote { background: #2a2220; }
         [data-theme="dark"] .article-body th { background: #2a2a2a; }
         [data-theme="dark"] .cn-block { background: #252220; border-left-color: #5a4a3a; color: #b5b0a8; }
+        .delete-btn:hover { color: #dc2626 !important; background: #fef2f2 !important; }
+        [data-theme="dark"] .delete-btn:hover { background: #2a1a1a !important; }
+        .action-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border);
+            background: var(--surface); color: var(--text); cursor: pointer;
+            font-size: 13px; font-family: inherit; transition: all 0.15s;
+        }
+        .action-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .md-editor {
+            width: 100%; max-width: var(--reading-width); margin: 0 auto; padding: 40px 20px;
+        }
+        .md-editor input {
+            width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px;
+            font-size: 15px; font-family: inherit; background: var(--surface); color: var(--text);
+            margin-bottom: 12px;
+        }
+        .md-editor textarea {
+            width: 100%; min-height: 60vh; padding: 16px; border: 1px solid var(--border);
+            border-radius: 8px; font-size: 14px; font-family: 'JetBrains Mono', monospace;
+            background: var(--surface); color: var(--text); resize: vertical; line-height: 1.6;
+        }
+        .md-editor textarea:focus, .md-editor input:focus { outline: none; border-color: var(--accent); }
+        .md-editor-actions { display: flex; gap: 8px; margin-top: 12px; }
+        .md-editor-actions .action-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .md-editor-actions .action-btn.primary:hover { opacity: 0.9; }
 
         body {
             font-family: 'Inter', -apple-system, sans-serif;
@@ -58,6 +84,7 @@
             flex-direction: column;
             flex-shrink: 0;
             height: 100vh;
+            position: relative;
         }
 
         .sidebar-header {
@@ -398,6 +425,14 @@
             white-space: nowrap;
         }
         .collection-chip i { width: 13px; height: 13px; }
+        .sidebar-tab-actions { display: flex; gap: 2px; margin-left: auto; align-items: center; }
+        .collection-action-btn {
+            width: 26px; height: 26px; border-radius: 6px; border: 1px solid var(--border);
+            background: var(--surface); color: var(--text-secondary); cursor: pointer;
+            display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+        }
+        .collection-action-btn i { width: 13px; height: 13px; }
+        .collection-action-btn:hover { border-color: var(--accent); color: var(--accent); }
         .collection-chip:hover { border-color: #aaa; color: var(--text); }
         .collection-chip.active {
             border-color: var(--col-color, var(--accent));
@@ -664,6 +699,12 @@
 
         /* Focus mode */
         body.focus-mode .sidebar { display: none; }
+        .sidebar-resize {
+            width: 4px; cursor: col-resize; background: transparent;
+            position: absolute; top: 0; right: -2px; bottom: 0; z-index: 10;
+            transition: background 0.15s;
+        }
+        .sidebar-resize:hover, .sidebar-resize.dragging { background: var(--accent); }
         body.focus-mode .progress-bar { left: 0; }
         body.focus-mode .reading-content { max-width: 680px; }
 
@@ -810,6 +851,11 @@
         <div class="sidebar-tab" data-view="topics"><i data-lucide="layers"></i> Topics</div>
         <div class="sidebar-tab" data-view="favorites"><i data-lucide="star"></i> Favs</div>
         <div class="sidebar-tab" data-view="notes"><i data-lucide="pen-line"></i> Notes</div>
+        <div class="sidebar-tab-actions">
+            <button class="collection-action-btn" onclick="showNewEditor()" title="New Note"><i data-lucide="plus"></i></button>
+            <button class="collection-action-btn" onclick="document.getElementById('uploadInput2').click()" title="Upload .md"><i data-lucide="upload"></i></button>
+            <input type="file" id="uploadInput2" accept=".md" multiple style="display:none" onchange="uploadFiles(this.files)">
+        </div>
     </div>
     <div class="sidebar-search">
         <i data-lucide="search"></i>
@@ -817,6 +863,7 @@
     </div>
     <div class="sidebar-list" id="sidebarList"></div>
     <div class="sidebar-stats" id="sidebarStats"></div>
+    <div class="sidebar-resize" id="sidebarResize"></div>
 </div>
 <div class="progress-bar" id="progressBar" style="display:none;"><div class="progress-fill" id="progressFill"></div></div>
 
@@ -920,6 +967,11 @@ async function switchCollection(key) {
             <div class="stats-bar" style="margin-top:12px;">
                 <div class="stat"><i data-lucide="flame"></i> <span class="stat-num">${stats.thisWeek}</span> this week</div>
                 <div class="stat"><i data-lucide="check-circle"></i> <span class="stat-num">${stats.total}</span> total read</div>
+            </div>
+            <div style="margin-top:20px;display:flex;gap:10px;justify-content:center;">
+                <button class="action-btn" onclick="showNewEditor()"><i data-lucide="plus" style="width:14px;height:14px;"></i> New Note</button>
+                <button class="action-btn" onclick="document.getElementById('uploadInput').click()"><i data-lucide="upload" style="width:14px;height:14px;"></i> Upload .md</button>
+                <input type="file" id="uploadInput" accept=".md" multiple style="display:none" onchange="uploadFiles(this.files)">
             </div>
         </div>`;
     document.querySelector('.toc-float')?.remove();
@@ -1188,13 +1240,13 @@ async function showPost(index) {
         const section = extractSection(md, item.anchor);
         htmlContent = marked.parse(section);
     } else if (cfg.type === 'markdown') {
-        fileUrl = `/api/file/${activeCollection}/${encodeURIComponent(item.file)}`;
+        fileUrl = apiUrl(activeCollection, item.file);
         const resp = await fetch(fileUrl);
         let md = await resp.text();
         md = md.replace(/^---[\s\S]*?---\s*/, '');
         htmlContent = marked.parse(md);
     } else if (cfg.type === 'html-files') {
-        fileUrl = `/api/file/${activeCollection}/${encodeURIComponent(item.file)}`;
+        fileUrl = apiUrl(activeCollection, item.file);
         const resp = await fetch(fileUrl);
         let html = await resp.text();
         // Wrap raw HTML in a container; strip <html><body> etc
@@ -1236,6 +1288,8 @@ async function showPost(index) {
                 <button class="toolbar-btn" onclick="toggleDarkMode()" title="Dark mode (D)"><i data-lucide="moon"></i></button>
                 <div class="toolbar-sep"></div>
                 <button class="toolbar-btn" onclick="toggleTranslate(this)" title="AI Translate"><i data-lucide="languages"></i></button>
+                <button class="toolbar-btn" onclick="toggleEditMode()" title="Edit source (E)" id="editBtn"><i data-lucide="pencil"></i></button>
+                <button class="toolbar-btn delete-btn" onclick="deleteCurrentPost()" title="Delete this file"><i data-lucide="trash-2"></i></button>
             </div>
             <div class="article-nav">
                 <button class="article-nav-btn ${hasPrev ? '' : 'disabled'}" onclick="${hasPrev ? 'showPost(' + sorted[posInSorted-1]._idx + ')' : ''}"><i data-lucide="chevron-left" style="width:14px;height:14px;"></i> Prev</button>
@@ -1244,7 +1298,7 @@ async function showPost(index) {
             </div>
             <div class="article-header">
                 ${catLine}
-                <div class="article-title">${item.title}</div>
+                <div class="article-title" ondblclick="editTitle(this, ${index})" title="Double-click to rename">${item.title}</div>
                 <div class="article-meta">
                     <span><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:-2px;margin-right:2px;"></i>${item.date || ''}</span>
                     ${catBadgeLine}
@@ -1297,7 +1351,11 @@ function toggleReadMark(index) {
 // === Favorites ===
 let favState = JSON.parse(localStorage.getItem('reader-favorites') || '{}');
 
-function favKey(item) { return `${activeCollection}/${item.file || item.title}`; }
+function favKey(item) { return `${activeCollection}/${item.file || ''}/${item.title}`; }
+
+// Strip "posts/" prefix from file paths for API calls (papers collection stores full path in index)
+function apiFile(file) { return (file || '').replace(/^posts\//, ''); }
+function apiUrl(collection, file) { return `/api/file/${collection}/${encodeURIComponent(apiFile(file))}`; }
 
 function toggleFav(index, event) {
     if (event) event.stopPropagation();
@@ -1419,9 +1477,150 @@ function changeFontSize(delta) {
     localStorage.setItem('reader-font-size', fontSize);
 }
 
+// === Sidebar Resize ===
+{
+    const handle = document.getElementById('sidebarResize');
+    const sidebar = document.querySelector('.sidebar');
+    let dragging = false;
+    handle.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        dragging = true;
+        handle.classList.add('dragging');
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+    });
+    document.addEventListener('mousemove', (e) => {
+        if (!dragging) return;
+        const w = Math.max(200, Math.min(600, e.clientX));
+        sidebar.style.width = w + 'px';
+    });
+    document.addEventListener('mouseup', () => {
+        if (!dragging) return;
+        dragging = false;
+        handle.classList.remove('dragging');
+        document.body.style.cursor = '';
+        document.body.style.userSelect = '';
+        localStorage.setItem('sidebar-width', sidebar.style.width);
+    });
+    const saved = localStorage.getItem('sidebar-width');
+    if (saved) sidebar.style.width = saved;
+}
+
 // === Focus Mode ===
 function toggleFocusMode() {
     document.body.classList.toggle('focus-mode');
+}
+
+// === Delete Post ===
+async function deleteCurrentPost() {
+    if (currentIndex < 0 || !items.length) return;
+    const item = items[currentIndex];
+    const name = item.title || item.file;
+    if (!confirm(`Delete "${name}"?\n\nThis will permanently remove the file.`)) return;
+    const url = apiUrl(activeCollection, item.file);
+    const res = await fetch(url, { method: 'DELETE' });
+    if (res.ok) {
+        items.splice(currentIndex, 1);
+        if (items.length === 0) {
+            document.querySelector('.article-pane').innerHTML = '<div style="padding:60px;text-align:center;color:var(--text-secondary);">No items</div>';
+        } else {
+            const next = Math.min(currentIndex, items.length - 1);
+            renderSidebar();
+            showPost(next);
+        }
+    } else {
+        alert('Failed to delete file');
+    }
+}
+
+// === Rename Title ===
+function editTitle(el, index) {
+    const item = items[index];
+    const oldTitle = item.title;
+    el.contentEditable = true;
+    el.style.outline = '2px solid var(--accent)';
+    el.style.borderRadius = '4px';
+    el.style.padding = '2px 6px';
+    el.focus();
+    // Select all text
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    const finish = async () => {
+        el.contentEditable = false;
+        el.style.outline = '';
+        el.style.padding = '';
+        const newTitle = el.textContent.trim();
+        if (!newTitle || newTitle === oldTitle) { el.textContent = oldTitle; return; }
+        // Update the # heading in the md file
+        const res = await fetch(`/api/rename/${activeCollection}/${encodeURIComponent(item.file)}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: newTitle }),
+        });
+        if (res.ok) {
+            item.title = newTitle;
+            renderSidebar();
+        } else {
+            el.textContent = oldTitle;
+            alert('Failed to rename');
+        }
+    };
+    el.onblur = finish;
+    el.onkeydown = (e) => { if (e.key === 'Enter') { e.preventDefault(); el.blur(); } if (e.key === 'Escape') { el.textContent = oldTitle; el.blur(); } };
+}
+
+// === New Note Editor ===
+function showNewEditor() {
+    const today = new Date().toISOString().slice(0, 10);
+    const pane = document.getElementById('readingPane');
+    pane.innerHTML = `
+        <div class="md-editor">
+            <input id="editorFilename" type="text" placeholder="Filename (e.g. my-note.md)" value="${today}-note.md">
+            <textarea id="editorContent" placeholder="# Title\n\nWrite your markdown here..."></textarea>
+            <div class="md-editor-actions">
+                <button class="action-btn primary" onclick="saveNewNote()"><i data-lucide="save" style="width:14px;height:14px;"></i> Save</button>
+                <button class="action-btn" onclick="switchCollection(activeCollection)"><i data-lucide="x" style="width:14px;height:14px;"></i> Cancel</button>
+            </div>
+        </div>`;
+    lucide.createIcons();
+    document.getElementById('editorContent').focus();
+}
+
+async function saveNewNote() {
+    let fname = document.getElementById('editorFilename').value.trim();
+    const content = document.getElementById('editorContent').value;
+    if (!fname) { alert('Please enter a filename'); return; }
+    if (!fname.endsWith('.md')) fname += '.md';
+    if (!content.trim()) { alert('Note is empty'); return; }
+    const res = await fetch(apiUrl(activeCollection, fname), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'text/markdown' },
+        body: content,
+    });
+    if (res.ok) {
+        await switchCollection(activeCollection);
+    } else {
+        alert('Failed to save');
+    }
+}
+
+// === Upload Files ===
+async function uploadFiles(fileList) {
+    if (!fileList.length || !activeCollection) return;
+    for (const file of fileList) {
+        const text = await file.text();
+        const res = await fetch(apiUrl(activeCollection, file.name), {
+            method: 'PUT',
+            headers: { 'Content-Type': 'text/markdown' },
+            body: text,
+        });
+        if (!res.ok) { alert(`Failed to upload ${file.name}`); return; }
+    }
+    document.getElementById('uploadInput').value = '';
+    await switchCollection(activeCollection);
 }
 
 // === Dark Mode ===
@@ -1543,6 +1742,87 @@ lucide.createIcons();
 
 // Save scroll on page unload
 window.addEventListener('beforeunload', saveScrollPos);
+
+// === Edit Mode ===
+let editMode = false;
+let editRawContent = '';
+
+async function toggleEditMode() {
+    const item = items[currentIndex];
+    if (!item) return;
+    const body = document.querySelector('.article-body');
+    if (!body) return;
+
+    if (!editMode) {
+        // Enter edit mode: fetch raw markdown
+        const cfg = collections.find(c => c.key === activeCollection);
+        let file = item.file || item.title;
+        const resp = await fetch(apiUrl(activeCollection, file));
+        editRawContent = await resp.text();
+
+        body.innerHTML = `
+            <div style="display:flex;gap:8px;margin-bottom:12px;">
+                <button class="action-btn" onclick="saveEdit()" style="background:var(--accent);color:#fff;border-color:var(--accent);">
+                    <i data-lucide="save" style="width:14px;height:14px;"></i> Save
+                </button>
+                <button class="action-btn" onclick="toggleEditMode()">
+                    <i data-lucide="x" style="width:14px;height:14px;"></i> Cancel
+                </button>
+            </div>
+            <textarea id="editTextarea" style="
+                width:100%; min-height:70vh; padding:16px; border:1px solid var(--border);
+                border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:13px;
+                line-height:1.6; background:var(--surface); color:var(--text);
+                resize:vertical; outline:none;
+            "></textarea>`;
+        document.getElementById('editTextarea').value = editRawContent;
+        lucide.createIcons();
+        editMode = true;
+        document.getElementById('editBtn').style.color = 'var(--accent)';
+    } else {
+        // Cancel edit: re-render article
+        editMode = false;
+        document.getElementById('editBtn').style.color = '';
+        showPost(currentIndex);
+    }
+}
+
+async function saveEdit() {
+    const item = items[currentIndex];
+    if (!item) return;
+    const textarea = document.getElementById('editTextarea');
+    if (!textarea) return;
+    const newContent = textarea.value;
+    let file = item.file || item.title;
+
+    try {
+        const resp = await fetch(apiUrl(activeCollection, file), {
+            method: 'PUT',
+            headers: { 'Content-Type': 'text/plain' },
+            body: newContent,
+        });
+        const result = await resp.json();
+        if (result.ok) {
+            editMode = false;
+            document.getElementById('editBtn').style.color = '';
+            // Reload items and re-render
+            await loadItems(activeCollection);
+            showPost(currentIndex);
+        } else {
+            alert('Save failed: ' + (result.error || 'unknown error'));
+        }
+    } catch (e) {
+        alert('Save error: ' + e.message);
+    }
+}
+
+// Keyboard shortcut: E to toggle edit
+document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'e' || e.key === 'E') {
+        if (currentIndex >= 0) toggleEditMode();
+    }
+});
 </script>
 </body>
 </html>
