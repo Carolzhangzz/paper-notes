@@ -1798,15 +1798,24 @@ async function saveEdit() {
     try {
         const resp = await fetch(apiUrl(activeCollection, file), {
             method: 'PUT',
-            headers: { 'Content-Type': 'text/plain' },
+            headers: { 'Content-Type': 'text/markdown' },
             body: newContent,
         });
+        if (!resp.ok) {
+            const errText = await resp.text();
+            alert('Save failed: HTTP ' + resp.status + ' — ' + errText);
+            return;
+        }
         const result = await resp.json();
         if (result.ok) {
             editMode = false;
             document.getElementById('editBtn').style.color = '';
-            // Reload items and re-render
-            await loadItems(activeCollection);
+            // Reload items - refetch without resetting view
+            try {
+                const refreshResp = await fetch(`/api/items/${activeCollection}`);
+                if (refreshResp.ok) items = await refreshResp.json();
+            } catch(e) {}
+            renderSidebar();
             showPost(currentIndex);
         } else {
             alert('Save failed: ' + (result.error || 'unknown error'));
