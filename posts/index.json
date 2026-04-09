@@ -4,35 +4,97 @@
     "title": "Curie: Toward Rigorous and Automated Scientific Experimentation with AI Agents",
     "category": "LLM/Foundation",
     "file": "posts/2026-04-08.md",
-    "anchor": "1-curie-toward-rigorous-and-automated-scientific-experimentation-with-ai-agents"
+    "anchor": "1-curie-toward-rigorous-and-automated-scientific-experimentation-with-ai-agents",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2502.16069"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2502.16069"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/Just-Curieous/Curie"
+      }
+    ]
   },
   {
     "date": "2026-04-08",
     "title": "EXP-Bench: Can AI Conduct AI Research Experiments?",
     "category": "LLM/Foundation",
     "file": "posts/2026-04-08.md",
-    "anchor": "2-exp-bench-can-ai-conduct-ai-research-experiments"
+    "anchor": "2-exp-bench-can-ai-conduct-ai-research-experiments",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2505.24785"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2505.24785"
+      }
+    ]
   },
   {
     "date": "2026-04-08",
     "title": "Sci-Reasoning: A Dataset Decoding AI Innovation Patterns",
     "category": "LLM/Foundation",
     "file": "posts/2026-04-08.md",
-    "anchor": "3-sci-reasoning-a-dataset-decoding-ai-innovation-patterns"
+    "anchor": "3-sci-reasoning-a-dataset-decoding-ai-innovation-patterns",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2601.04577"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2601.04577"
+      },
+      {
+        "label": "Dataset",
+        "url": "https://huggingface.co/datasets/AmberLJC/Sci-Reasoning"
+      }
+    ]
   },
   {
     "date": "2026-04-08",
     "title": "Towards General Agentic Intelligence via Environment Scaling (AgentScaler)",
     "category": "LLM/Foundation",
     "file": "posts/2026-04-08.md",
-    "anchor": "4-towards-general-agentic-intelligence-via-environment-scaling-agentscaler"
+    "anchor": "4-towards-general-agentic-intelligence-via-environment-scaling-agentscaler",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2509.13311"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2509.13311"
+      }
+    ]
   },
   {
     "date": "2026-04-08",
     "title": "SentiAvatar: Towards Expressive and Interactive Digital Humans",
     "category": "LLM/Foundation",
     "file": "posts/2026-04-08.md",
-    "anchor": "5-sentiavatar-towards-expressive-and-interactive-digital-humans"
+    "anchor": "5-sentiavatar-towards-expressive-and-interactive-digital-humans",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2604.02908"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2604.02908"
+      },
+      {
+        "label": "Project",
+        "url": "https://sentiavatar.github.io"
+      }
+    ]
   },
   {
     "date": "2026-04-08",
@@ -44,7 +106,7 @@
   {
     "date": "2026-04-08-note",
     "title": "2026-04-08-note",
-    "category": "LLM/Foundation",
+    "category": "World Models",
     "file": "posts/2026-04-08-note.md"
   },
   {
@@ -386,21 +448,51 @@
     "title": "Kinema4D: Kinematic 4D World Modeling for Spatiotemporal Embodied Simulation",
     "category": "World Models",
     "file": "posts/2026-03-27.md",
-    "anchor": "1-kinema4d-kinematic-4d-world-modeling-for-spatiotemporal-embodied-simulation"
+    "anchor": "1-kinema4d-kinematic-4d-world-modeling-for-spatiotemporal-embodied-simulation",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2603.16669"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2603.16669"
+      }
+    ]
   },
   {
     "date": "2026-03-27",
     "title": "DualCoT-VLA: Visual-Linguistic Chain of Thought via Parallel Reasoning for Vision-Language-Action Models",
     "category": "Multimodal/VLM",
     "file": "posts/2026-03-27.md",
-    "anchor": "2-dualcot-vla-visual-linguistic-chain-of-thought-via-parallel-reasoning-for-vision-language-action-models"
+    "anchor": "2-dualcot-vla-visual-linguistic-chain-of-thought-via-parallel-reasoning-for-vision-language-action-models",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2603.22280"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2603.22280"
+      }
+    ]
   },
   {
     "date": "2026-03-27",
     "title": "TIPS: Turn-Level Information-Potential Reward Shaping for Search-Augmented LLMs",
     "category": "LLM/Foundation",
     "file": "posts/2026-03-27.md",
-    "anchor": "3-tips-turn-level-information-potential-reward-shaping-for-search-augmented-llms"
+    "anchor": "3-tips-turn-level-information-potential-reward-shaping-for-search-augmented-llms",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2603.22293"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2603.22293"
+      }
+    ]
   },
   {
     "date": "2026-03-27",
@@ -414,13 +506,33 @@
     "title": "VideoITG: Multimodal Video Understanding with Instructed Temporal Grounding",
     "category": "Multimodal/VLM",
     "file": "posts/2026-03-27.md",
-    "anchor": "5-videoitg-multimodal-video-understanding-with-instructed-temporal-grounding"
+    "anchor": "5-videoitg-multimodal-video-understanding-with-instructed-temporal-grounding",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2507.13353"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2507.13353"
+      }
+    ]
   },
   {
     "date": "2026-03-27",
     "title": "Do 3D Large Language Models Really Understand 3D Spatial Relationships?",
     "category": "LLM/Foundation",
     "file": "posts/2026-03-27.md",
-    "anchor": "6-do-3d-large-language-models-really-understand-3d-spatial-relationships"
+    "anchor": "6-do-3d-large-language-models-really-understand-3d-spatial-relationships",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2603.23523"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2603.23523"
+      }
+    ]
   }
 ]
