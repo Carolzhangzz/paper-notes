@@ -1,5 +1,85 @@
 [
   {
+    "date": "2026-04-09",
+    "title": "WAC: World-Model-Augmented Web Agents with Action Correction",
+    "category": "World Models",
+    "file": "posts/2026-04-09.md",
+    "anchor": "1-wac-world-model-augmented-web-agents-with-action-correction",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2602.15384"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2602.15384"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "title": "DeltaWorld: A Frame is Worth One Token — Efficient Generative World Modeling with Delta Tokens",
+    "category": "World Models",
+    "file": "posts/2026-04-09.md",
+    "anchor": "2-deltaworld-a-frame-is-worth-one-token-efficient-generative-world-modeling-with-delta-tokens",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2604.04913"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2604.04913"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/amazon-far"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "title": "Action Images: End-to-End Policy Learning via Multiview Video Generation",
+    "category": "World Models",
+    "file": "posts/2026-04-09.md",
+    "anchor": "3-action-images-end-to-end-policy-learning-via-multiview-video-generation",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2604.06168"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2604.06168"
+      },
+      {
+        "label": "Project",
+        "url": "https://actionimages.github.io"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/UMass-Embodied-AGI/ActionImages"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "title": "D²-Align: Taming Preference Mode Collapse via Directional Decoupling Alignment",
+    "category": "AI Safety",
+    "file": "posts/2026-04-09.md",
+    "anchor": "4-d²-align-taming-preference-mode-collapse-via-directional-decoupling-alignment",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2512.24146"
+      },
+      {
+        "label": "PDF",
+        "url": "https://arxiv.org/pdf/2512.24146"
+      }
+    ]
+  },
+  {
     "date": "2026-04-08",
     "title": "Curie: Toward Rigorous and Automated Scientific Experimentation with AI Agents",
     "category": "LLM/Foundation",
