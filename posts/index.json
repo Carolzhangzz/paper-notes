@@ -1,16 +1,425 @@
 [
   {
-    "date": "2026-04-09-note",
-    "title": "2026-04-09-note",
-    "category": "Embodied AI",
-    "file": "posts/2026-04-09-note.md"
+    "date": "2026-04-11",
+    "title": "Towards Bidirectional Human-AI Alignment: A Systematic Review",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-04-11.md",
+    "anchor": "1-towards-bidirectional-human-ai-alignment-a-systematic-review",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2406.09264"
+      }
+    ]
   },
   {
-    "date": "2026-04-09-batch3",
+    "date": "2026-04-11",
+    "title": "InfEdit: Inversion-Free Image Editing with Language-Guided Diffusion Models",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-11.md",
+    "anchor": "2-infedit-inversion-free-image-editing-with-language-guided-diffusion-models",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2312.04965"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/sled-group/InfEdit"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "GROUNDHOG: Grounding Large Language Models to Holistic Segmentation",
+    "category": "Multimodal/VLM",
+    "file": "posts/2026-04-11.md",
+    "anchor": "3-groundhog-grounding-large-language-models-to-holistic-segmentation",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2402.16846"
+      },
+      {
+        "label": "Project",
+        "url": "https://groundhog-mllm.github.io/"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "Towards A Holistic Landscape of Situated Theory of Mind in Large Language Models",
+    "category": "Embodied AI",
+    "file": "posts/2026-04-11.md",
+    "anchor": "4-towards-a-holistic-landscape-of-situated-theory-of-mind-in-large-language-models",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2310.19619"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "Multi-Object Hallucination in Vision-Language Models",
+    "category": "Multimodal/VLM",
+    "file": "posts/2026-04-11.md",
+    "anchor": "5-multi-object-hallucination-in-vision-language-models",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2407.06192"
+      },
+      {
+        "label": "Project",
+        "url": "https://multi-object-hallucination.github.io/"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "Vision-and-Language Navigation Today and Tomorrow: A Survey",
+    "category": "World Models",
+    "file": "posts/2026-04-11.md",
+    "anchor": "6-vision-and-language-navigation-today-and-tomorrow-a-survey",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2407.07035"
+      },
+      {
+        "label": "Repo",
+        "url": "https://github.com/zhangyuejoslin/VLN-Survey-with-Foundation-Models"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "Do Vision-Language Models Represent Space and How? (COMFORT)",
+    "category": "Embodied AI",
+    "file": "posts/2026-04-11.md",
+    "anchor": "7-do-vision-language-models-represent-space-and-how-comfort",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2410.17385"
+      },
+      {
+        "label": "Project",
+        "url": "https://spatial-comfort.github.io/"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "DriVLMe: Enhancing LLM-based Autonomous Driving Agents with Embodied and Social Experiences",
+    "category": "HCI/Creativity",
+    "file": "posts/2026-04-11.md",
+    "anchor": "8-drivlme-enhancing-llm-based-autonomous-driving-agents-with-embodied-and-social-experiences",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2406.03008"
+      },
+      {
+        "label": "Project",
+        "url": "https://sled-group.github.io/driVLMe/"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "CycleNet: Rethinking Cycle Consistency in Text-Guided Diffusion for Image Manipulation",
+    "category": "Embodied AI",
+    "file": "posts/2026-04-11.md",
+    "anchor": "9-cyclenet-rethinking-cycle-consistency-in-text-guided-diffusion-for-image-manipulation",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2310.13165"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/sled-group/CycleNet"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "GraphPart: Partition-based Active Learning for Graph Neural Networks",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-11.md",
+    "anchor": "10-graphpart-partition-based-active-learning-for-graph-neural-networks",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2201.09391"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/Mars-tin/GraphPart"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "World-to-Words: Grounded Open Vocabulary Acquisition (ACL 2023 Outstanding Paper)",
+    "category": "Multimodal/VLM",
+    "file": "posts/2026-04-11.md",
+    "anchor": "11-world-to-words-grounded-open-vocabulary-acquisition-acl-2023-outstanding-paper",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2306.08685"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/sled-group/world-to-words"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "VEGGIE: Instructional Editing and Reasoning Video Concepts",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-11.md",
+    "anchor": "12-veggie-instructional-editing-and-reasoning-video-concepts",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2503.14350"
+      },
+      {
+        "label": "Project",
+        "url": "https://veggie-gen.github.io/"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "DANLI: Deliberative Agent for Following Natural Language Instructions",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-11.md",
+    "anchor": "13-danli-deliberative-agent-for-following-natural-language-instructions",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2210.12485"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/sled-group/DANLI"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "ICLR 2025 Workshop on Bidirectional Human-AI Alignment (BiAlign)",
+    "category": "Survey",
+    "file": "posts/2026-04-11.md",
+    "anchor": "14-iclr-2025-workshop-on-bidirectional-human-ai-alignment-bialign",
+    "links": [
+      {
+        "label": "Workshop Site",
+        "url": "https://bialign-workshop.github.io/"
+      },
+      {
+        "label": "OpenReview",
+        "url": "https://openreview.net/forum?id=HcTiacDN8N"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "Do Vision-Language Models Have Internal World Models? (WM-ABench)",
+    "category": "World Models",
+    "file": "posts/2026-04-11.md",
+    "anchor": "15-do-vision-language-models-have-internal-world-models-wm-abench",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2506.21876"
+      },
+      {
+        "label": "Project",
+        "url": "https://wm-abench.maitrix.org/"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "Babysit A Language Model From Scratch: Interactive Language Learning by Trials and Demonstrations",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-11.md",
+    "anchor": "16-babysit-a-language-model-from-scratch-interactive-language-learning-by-trials-and-demonstrations",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2405.13828"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/sled-group/TnD"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "DOROTHIE: Spoken Dialogue for Handling Unexpected Situations in Interactive Autonomous Driving Agents",
+    "category": "Embodied AI",
+    "file": "posts/2026-04-11.md",
+    "anchor": "17-dorothie-spoken-dialogue-for-handling-unexpected-situations-in-interactive-autonomous-driving-agents",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2210.12511"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/sled-group/DOROTHIE"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "Training Turn-by-Turn Verifiers for Dialogue Tutoring Agents (TRAVER)",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-11.md",
+    "anchor": "18-training-turn-by-turn-verifiers-for-dialogue-tutoring-agents-traver",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2502.13311"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/iwangjian/Coding-Tutor"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "Towards Collaborative Plan Acquisition through Theory of Mind Modeling",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-11.md",
+    "anchor": "19-towards-collaborative-plan-acquisition-through-theory-of-mind-modeling",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2305.11271"
+      },
+      {
+        "label": "Code",
+        "url": "https://github.com/sled-group/collab-plan-acquisition"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-11",
+    "title": "总体思想弧总结",
+    "category": "World Models",
+    "file": "posts/2026-04-11.md",
+    "anchor": "总体思想弧总结"
+  },
+  {
+    "date": "2026-04-11",
+    "title": "AI Daily - 2026-04-11",
+    "category": "AI Daily",
+    "file": "posts/2026-04-11-daily.md"
+  },
+  {
+    "date": "2026-04-09",
+    "title": "World-Model-Augmented Web Agents with Action Correction (WAC)",
+    "category": "World Models",
+    "file": "posts/2026-04-09.md",
+    "anchor": "1-world-model-augmented-web-agents-with-action-correction-wac"
+  },
+  {
+    "date": "2026-04-09",
+    "title": "A Frame is Worth One Token: Efficient Generative World Modeling with Delta Tokens",
+    "category": "World Models",
+    "file": "posts/2026-04-09.md",
+    "anchor": "2-a-frame-is-worth-one-token-efficient-generative-world-modeling-with-delta-tokens"
+  },
+  {
+    "date": "2026-04-09",
+    "title": "Action Images: End-to-End Policy Learning via Multiview Video Generation",
+    "category": "Embodied AI",
+    "file": "posts/2026-04-09.md",
+    "anchor": "3-action-images-end-to-end-policy-learning-via-multiview-video-generation"
+  },
+  {
+    "date": "2026-04-09",
+    "title": "Cross-Paper Synthesis",
+    "category": "World Models",
+    "file": "posts/2026-04-09.md",
+    "anchor": "cross-paper-synthesis"
+  },
+  {
+    "date": "2026-04-09",
+    "title": "Taming Preference Mode Collapse via Directional Decoupling Alignment in Diffusion Reinforcement Learning",
+    "category": "AI Safety",
+    "file": "posts/2026-04-09.md",
+    "anchor": "4-taming-preference-mode-collapse-via-directional-decoupling-alignment-in-diffusion-reinforcement-learning",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2512.24146"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "title": "Position: Towards Bidirectional Human-AI Alignment: A Systematic Review for Clarifications, Framework, and Future Directions",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-09.md",
+    "anchor": "5-position-towards-bidirectional-human-ai-alignment-a-systematic-review-for-clarifications-framework-and-future-directions",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2406.09264"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "title": "Do Vision-Language Models Have Internal World Models? Towards an Atomic Evaluation",
+    "category": "World Models",
+    "file": "posts/2026-04-09.md",
+    "anchor": "6-do-vision-language-models-have-internal-world-models-towards-an-atomic-evaluation",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2506.21876"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "title": "Do Vision-Language Models Represent Space and How? Evaluating Spatial Frame of Reference Under Ambiguities",
+    "category": "AI Safety",
+    "file": "posts/2026-04-09.md",
+    "anchor": "7-do-vision-language-models-represent-space-and-how-evaluating-spatial-frame-of-reference-under-ambiguities",
+    "links": [
+      {
+        "label": "arXiv",
+        "url": "https://arxiv.org/abs/2410.17385"
+      }
+    ]
+  },
+  {
+    "date": "2026-04-09",
+    "title": "Cross-Paper Synthesis: 跨论文洞察",
+    "category": "World Models",
+    "file": "posts/2026-04-09.md",
+    "anchor": "cross-paper-synthesis-跨论文洞察"
+  },
+  {
+    "date": "2026-04-09",
     "title": "World-to-Words: Grounded Open Vocabulary Acquisition through Fast Mapping in Vision-Language Models",
     "category": "Embodied AI",
-    "file": "posts/2026-04-09-batch3.md",
-    "anchor": "1-world-to-words-grounded-open-vocabulary-acquisition-through-fast-mapping-in-vision-language-models",
+    "file": "posts/2026-04-09.md",
+    "anchor": "8-world-to-words-grounded-open-vocabulary-acquisition-through-fast-mapping-in-vision-language-models",
     "links": [
       {
         "label": "ACL Anthology",
@@ -27,11 +436,11 @@
     ]
   },
   {
-    "date": "2026-04-09-batch3",
+    "date": "2026-04-09",
     "title": "Towards A Holistic Landscape of Situated Theory of Mind in Large Language Models",
     "category": "LLM/Foundation",
-    "file": "posts/2026-04-09-batch3.md",
-    "anchor": "2-towards-a-holistic-landscape-of-situated-theory-of-mind-in-large-language-models",
+    "file": "posts/2026-04-09.md",
+    "anchor": "9-towards-a-holistic-landscape-of-situated-theory-of-mind-in-large-language-models",
     "links": [
       {
         "label": "ACL Anthology",
@@ -48,11 +457,11 @@
     ]
   },
   {
-    "date": "2026-04-09-batch3",
+    "date": "2026-04-09",
     "title": "Babysit A Language Model From Scratch: Interactive Language Learning by Trials and Demonstrations",
     "category": "LLM/Foundation",
-    "file": "posts/2026-04-09-batch3.md",
-    "anchor": "3-babysit-a-language-model-from-scratch-interactive-language-learning-by-trials-and-demonstrations",
+    "file": "posts/2026-04-09.md",
+    "anchor": "10-babysit-a-language-model-from-scratch-interactive-language-learning-by-trials-and-demonstrations",
     "links": [
       {
         "label": "ACL Anthology",
@@ -69,11 +478,11 @@
     ]
   },
   {
-    "date": "2026-04-09-batch3",
+    "date": "2026-04-09",
     "title": "Towards Collaborative Plan Acquisition through Theory of Mind Modeling in Situated Dialogue",
     "category": "LLM/Foundation",
-    "file": "posts/2026-04-09-batch3.md",
-    "anchor": "4-towards-collaborative-plan-acquisition-through-theory-of-mind-modeling-in-situated-dialogue",
+    "file": "posts/2026-04-09.md",
+    "anchor": "11-towards-collaborative-plan-acquisition-through-theory-of-mind-modeling-in-situated-dialogue",
     "links": [
       {
         "label": "IJCAI Proceedings",
@@ -90,11 +499,17 @@
     ]
   },
   {
-    "date": "2026-04-09-batch3",
+    "date": "2026-04-09",
     "title": "Cross-Paper Analysis: 一条清晰的研究线索",
     "category": "LLM/Foundation",
-    "file": "posts/2026-04-09-batch3.md",
+    "file": "posts/2026-04-09.md",
     "anchor": "cross-paper-analysis-一条清晰的研究线索"
+  },
+  {
+    "date": "2026-04-09-note",
+    "title": "2026-04-09-note",
+    "category": "LLM/Foundation",
+    "file": "posts/2026-04-09-note.md"
   },
   {
     "date": "2026-04-08",
@@ -631,93 +1046,5 @@
         "url": "https://arxiv.org/pdf/2603.23523"
       }
     ]
-  },
-  {
-    "date": "2026-04-09",
-    "title": "World-Model-Augmented Web Agents with Action Correction (WAC)",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "1-world-model-augmented-web-agents-with-action-correction-wac",
-    "links": []
-  },
-  {
-    "date": "2026-04-09",
-    "title": "A Frame is Worth One Token: Efficient Generative World Modeling with Delta Tokens",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "2-a-frame-is-worth-one-token-efficient-generative-world-modeling-with-delta-tokens",
-    "links": []
-  },
-  {
-    "date": "2026-04-09",
-    "title": "Action Images: End-to-End Policy Learning via Multiview Video Generation",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "3-action-images-end-to-end-policy-learning-via-multiview-video-generation",
-    "links": []
-  },
-  {
-    "date": "2026-04-09",
-    "title": "Taming Preference Mode Collapse via Directional Decoupling Alignment in Diffusion Reinforcement Learning",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "4-taming-preference-mode-collapse-via-directional-decoupling-alignment-in-diffusion-reinforcement-learning",
-    "links": []
-  },
-  {
-    "date": "2026-04-09",
-    "title": "Position: Towards Bidirectional Human-AI Alignment: A Systematic Review for Clarifications, Framework, and Future Directions",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "5-position-towards-bidirectional-human-ai-alignment-a-systematic-review-for-clarifications-framework-and-future-directions",
-    "links": []
-  },
-  {
-    "date": "2026-04-09",
-    "title": "Do Vision-Language Models Have Internal World Models? Towards an Atomic Evaluation",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "6-do-vision-language-models-have-internal-world-models-towards-an-atomic-evaluation",
-    "links": []
-  },
-  {
-    "date": "2026-04-09",
-    "title": "Do Vision-Language Models Represent Space and How? Evaluating Spatial Frame of Reference Under Ambiguities",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "7-do-vision-language-models-represent-space-and-how-evaluating-spatial-frame-of-reference-under-ambiguities",
-    "links": []
-  },
-  {
-    "date": "2026-04-09",
-    "title": "World-to-Words: Grounded Open Vocabulary Acquisition through Fast Mapping in Vision-Language Models",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "8-world-to-words-grounded-open-vocabulary-acquisition-through-fast-mapping-in-vision-language-models",
-    "links": []
-  },
-  {
-    "date": "2026-04-09",
-    "title": "Towards A Holistic Landscape of Situated Theory of Mind in Large Language Models",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "9-towards-a-holistic-landscape-of-situated-theory-of-mind-in-large-language-models",
-    "links": []
-  },
-  {
-    "date": "2026-04-09",
-    "title": "Babysit A Language Model From Scratch: Interactive Language Learning by Trials and Demonstrations",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "10-babysit-a-language-model-from-scratch-interactive-language-learning-by-trials-and-demonstrations",
-    "links": []
-  },
-  {
-    "date": "2026-04-09",
-    "title": "Towards Collaborative Plan Acquisition through Theory of Mind Modeling in Situated Dialogue",
-    "category": "Paper Analysis",
-    "file": "posts/2026-04-09.md",
-    "anchor": "11-towards-collaborative-plan-acquisition-through-theory-of-mind-modeling-in-situated-dialogue",
-    "links": []
   }
 ]
