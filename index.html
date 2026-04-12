@@ -195,16 +195,40 @@
             border-left-color: var(--accent);
         }
         .sidebar-item .read-dot {
-            width: 7px;
-            height: 7px;
+            width: 13px;
+            height: 13px;
             border-radius: 50%;
-            background: var(--accent);
+            background: transparent;
+            border: 1.5px solid var(--accent);
             flex-shrink: 0;
-            margin-top: 6px;
-            transition: all 0.2s;
+            margin-top: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 9px;
+            line-height: 1;
         }
-        .sidebar-item.is-read .read-dot { background: transparent; }
-        .sidebar-item.is-read .sidebar-item-title { color: var(--text-secondary); font-weight: 500; }
+        .sidebar-item .read-dot:hover { background: rgba(196,93,62,0.18); }
+        .sidebar-item.is-read .read-dot {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        .sidebar-item.is-read .read-dot::after { content: "✓"; }
+        .sidebar-item.is-read .sidebar-item-title { color: var(--text-secondary); font-weight: 500; text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.2); }
+        /* Mark-as-read button in reader toolbar */
+        .mark-read-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            padding: 5px 10px; font-size: 11px; font-weight: 500;
+            border: 1px solid var(--border); border-radius: 6px;
+            background: var(--bg); color: var(--text-secondary);
+            cursor: pointer; transition: all 0.15s;
+        }
+        .mark-read-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .mark-read-btn.is-read { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .mark-read-btn i { width: 13px; height: 13px; }
         .sidebar-item-content { flex: 1; min-width: 0; }
         .sidebar-item-title {
             font-size: 13px;
@@ -1105,7 +1129,7 @@ function sidebarItem(item, showCategory) {
     const noted = hasNote(item);
     return `<div class="sidebar-item ${item._idx === currentIndex ? 'active' : ''} ${isRead ? 'is-read' : ''}"
                 onclick="showPost(${item._idx})">
-        <div class="read-dot"></div>
+        <div class="read-dot" title="${isRead ? 'Mark as unread' : 'Mark as read'}" onclick="event.stopPropagation();toggleReadMark(${item._idx})"></div>
         <div class="sidebar-item-content">
             <div class="sidebar-item-title">${item.title}</div>
             <div class="sidebar-item-meta">
@@ -1226,8 +1250,7 @@ async function showPost(index) {
     const item = items[index];
     const cfg = collections.find(c => c.key === activeCollection);
 
-    // Mark as read
-    markAsRead(item);
+    // Note: no longer auto-mark as read; user toggles manually via checkbox/button
 
     // Fetch content based on collection type
     let htmlContent = '';
@@ -1303,7 +1326,10 @@ async function showPost(index) {
                     <span><i data-lucide="calendar" style="width:12px;height:12px;vertical-align:-2px;margin-right:2px;"></i>${item.date || ''}</span>
                     ${catBadgeLine}
                     ${linksLine}
-                    <button class="lang-toggle" onclick="toggleReadMark(${index})" title="Mark unread"><i data-lucide="eye-off"></i></button>
+                    <button class="mark-read-btn ${readState[`${activeCollection}/${item.file || item.title}`] ? 'is-read' : ''}" onclick="toggleReadMark(${index})" title="Toggle read/unread">
+                        <i data-lucide="${readState[`${activeCollection}/${item.file || item.title}`] ? 'check-circle-2' : 'circle'}"></i>
+                        <span>${readState[`${activeCollection}/${item.file || item.title}`] ? 'Read' : 'Mark as read'}</span>
+                    </button>
                 </div>
             </div>
             <div class="article-body">${htmlContent}</div>
@@ -1339,13 +1365,22 @@ async function showPost(index) {
 function toggleReadMark(index) {
     const item = items[index];
     const key = `${activeCollection}/${item.file || item.title}`;
-    if (readState[key]) {
-        markAsUnread(item);
-    } else {
-        markAsRead(item);
-    }
+    const nowRead = !readState[key];
+    if (nowRead) { markAsRead(item); } else { markAsUnread(item); }
     renderSidebar();
     renderStats();
+    // In-place update of the reader-pane button (avoid re-render / scroll reset)
+    const btn = document.querySelector('.article-header .mark-read-btn');
+    if (btn) {
+        btn.classList.toggle('is-read', nowRead);
+        const icon = btn.querySelector('i');
+        if (icon) {
+            icon.setAttribute('data-lucide', nowRead ? 'check-circle-2' : 'circle');
+        }
+        const label = btn.querySelector('span');
+        if (label) label.textContent = nowRead ? 'Read' : 'Mark as read';
+        if (window.lucide) lucide.createIcons();
+    }
 }
 
 // === Favorites ===
